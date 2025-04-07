@@ -1,0 +1,4 @@
+package com.project.badge.model;
+
+public class Profile {
+}
