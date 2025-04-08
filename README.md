@@ -36,3 +36,33 @@ Voici les entités du projet (en cours d’implémentation) :
 ```bash
 cd backend
 mvn spring-boot:run
+
+### 🔧 frontend (angular)
+cd frontend
+npm install
+ng serve
+L’interface sera disponible sur : http://localhost:4200
+
+
+
+
+### 🔧 Git (commands)
+
+# Initialiser un dépôt Git
+git init
+
+# Lier un dépôt GitHub
+git remote add origin https://github.com/votre-utilisateur/nom-du-repo.git
+
+# Ajouter et committer
+git add .
+git commit -m "Message de commit"
+git push -u origin main
+
+
+### branches:
+git checkout -b nom-du-branche
+git checkout nom-du-branche
+git push -u origin nom-du-branche
+git checkout main
+git merge nom-du-branche
