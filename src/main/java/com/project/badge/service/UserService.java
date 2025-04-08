@@ -1,20 +1,31 @@
 package com.project.badge.service;
-
+import com.project.badge.model.User;
 import com.project.badge.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
-public class UserService {
+import java.util.List;
+import java.util.Optional;
 
-    private final UserRepository userRepository;
+@Service
+public class UserService{
 
     @Autowired
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    private UserRepository UserRepository;
+
+    public List<User> getAllUsers(){
+        return UserRepository.findAll();
     }
 
-    public String testService() {
-        return "UserService is working!";
+    public Optional<User> getUserById(Long id){
+        return UserRepository.findById(id);
+
+    }
+    public User createuser(User user){
+        return UserRepository.save(user);
+
+    }
+    public void deleteuser(Long id){
+        UserRepository.deleteById(id);
     }
 }

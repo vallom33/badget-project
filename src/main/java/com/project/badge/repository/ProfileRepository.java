@@ -1,4 +1,9 @@
 package com.project.badge.repository;
+import com.project.badge.model.Profile;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface ProfileRepository {
+@Repository
+public interface ProfileRepository extends JpaRepository<Profile ,Long >{
+
 }
