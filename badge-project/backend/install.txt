@@ -1,0 +1,83 @@
+=========================
+= Project Setup Guide   =
+= Author: Saiid         =
+= Project: badge-project=
+=========================
+
+----------------------------------
+ JAVA & MAVEN INSTALLATION (Linux)
+----------------------------------
+# Java 17
+sudo apt update
+sudo apt install openjdk-17-jdk
+
+# Set JAVA_HOME (temporary)
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+export PATH=$JAVA_HOME/bin:$PATH
+
+# Maven
+sudo apt install maven
+
+# Verify installation
+java -version
+mvn -version
+
+--------------------------
+ GIT COMMANDS (for project)
+--------------------------
+# Clone repo
+git clone https://github.com/vallom33/badget-project.git
+cd badget-project
+
+# After modifying files:
+git add .
+git commit -m "your message here"
+git push
+
+# Check status
+git status
+
+---------------------------
+ SPRING BOOT RUNNING (BACKEND)
+---------------------------
+# Run the Spring Boot app
+mvn spring-boot:run
+
+# Or build a jar
+mvn clean install
+java -jar target/*.jar
+
+-----------------------------------
+ ANGULAR INSTALLATION & RUN (FRONTEND)
+-----------------------------------
+# Install Node.js (if not installed)
+sudo apt install nodejs
+sudo apt install npm
+
+# Install Angular CLI
+npm install -g @angular/cli
+
+# Run Angular project
+cd frontend-folder
+npm install
+ng serve
+
+---------------------------
+ HELPFUL FILES TO COMMIT
+---------------------------
+pom.xml
+README.md
+INSTALL_NOTES.txt
+src/
+
+--------------------------------------
+ OTHER NOTES
+--------------------------------------
+# Check port (Spring Boot default):
+localhost:8080
+
+# Angular dev server:
+localhost:4200
+
+# API test with Postman:
+GET  http://localhost:8080/user/hello

@@ -1,0 +1,38 @@
+/* الهيكل الأساسي */
+.app-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Sidebar يتعامل مع نفسه داخل component الخاص به */
+app-sidebar {
+  flex-shrink: 0; /* sidebar ما يصغر */
+}
+
+/* Main content */
+.content {
+  flex-grow: 1;
+  background-color: #000; /* خلفية سوداء */
+  position: relative;
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+/* زر طي القائمة */
+.sidebar-toggle-btn {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background-color: #444;
+  border: none;
+  color: #fff;
+  padding: 0.5rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+/* المحتوى الداخلي */
+.content-inner {
+  color: white;
+}
