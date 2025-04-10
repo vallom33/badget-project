@@ -1,0 +1,16 @@
+<div class="app-container">
+  <!-- Sidebar -->
+  <app-sidebar
+    [isSidebarCollapsed]="isSidebarCollapsed"
+    (sidebarToggle)="onSidebarToggle()"
+  ></app-sidebar>
+
+  <!-- Main content -->
+  <main class="content" [ngClass]="{ 'content-expanded': isSidebarCollapsed }">
+
+    <div class="content-inner">
+      <h1>Welcome to my website !</h1>
+      <p>this is my contenent</p>
+    </div>
+  </main>
+</div>

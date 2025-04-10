@@ -1,17 +1,4 @@
-# Java backend
-backend/target/
-*.log
-
-# Node/Angular frontend
-frontend/node_modules/
-frontend/dist/
-frontend/.angular/
-
-# OS
-.DS_Store
-Thumbs.db
-
-# المجلدات المستثناة
+HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
