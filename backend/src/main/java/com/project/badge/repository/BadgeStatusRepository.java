@@ -1,4 +1,9 @@
 package com.project.badge.repository;
 
-public interface BadgeStatusRepository {
+import com.project.badge.model.BadgeStatus;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface BadgeStatusRepository extends JpaRepository<BadgeStatus, Long> {
 }

@@ -14,6 +14,11 @@ public class Profile {
     @Column(name="NNI",nullable = false,unique = true)
     private String NNI;
 
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+
 
     public Profile() {
 
@@ -29,10 +34,10 @@ public class Profile {
     public void setId(Long id) {
         this.id=id;
     }
-    public String getUsername() {
+    public String getLibelle() {
         return libelle;
     }
-    public void setUsername(String libelle) {
+    public void setLibelle(String libelle) {
         this.libelle = libelle;
     }
     public String getNNI() {

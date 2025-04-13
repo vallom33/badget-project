@@ -1,6 +1,6 @@
 package com.project.badge.controller;
 import com.project.badge.model.Profile;
-import com.project.badge.service.ProfileService;
+import com.project.badge.service.ProfileServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +13,7 @@ import java.util.Optional;
 public class ProfileController {
 
     @Autowired
-    private ProfileService profileService;
+    private ProfileServiceImpl profileService;
 
     @GetMapping
     public List<Profile> getAllProfile(){
@@ -22,17 +22,17 @@ public class ProfileController {
 
     @GetMapping("/{id}")
     public Optional<Profile> getProfileById(@PathVariable Long id){
-        return profileService.getProfileBYId( id);
+        return profileService.getProfileById( id);
     }
 
     @PostMapping
     public Profile createprofile(@RequestBody Profile profile){
-        return profileService.createprofile(profile);
+        return profileService.createProfile(profile);
     }
 
     @PostMapping("/{id}")
     public void deleteprofile(@PathVariable Long id){
-        profileService.deleteprofile(id);
+        profileService.deleteProfile(id);
     }
 
 }
