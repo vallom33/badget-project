@@ -15,16 +15,16 @@ export class SidebarComponent {
   @Output() sidebarToggle = new EventEmitter<void>();
 
   menuItems = [
-    { icon: '🏠', label: 'Home', link: '/home' },
-    { icon: '👥', label: 'Users', link: '/users' },
-    { icon: '🧑‍💼', label: 'Employes', link: '/employes' },
+    { icon: '👥', label: 'Users', link: '/user' },
+    { icon: ' ', label: 'Profile', link: '/profile' },
+    { icon: '🧑‍💼', label: 'Employés', link: '/employes' },
     { icon: '🎖️', label: 'Badges', link: '/badges' },
-    { icon: '📍', label: 'Badge Status', link: '/badge-status' },
+    { icon: '📋', label: 'Lots', link: '/lots' },
     { icon: '🛡️', label: 'Authorities', link: '/authorities' },
-    { icon: '🔑', label: 'Permissions', link: '/permissions' },
-    { icon: '📦', label: 'Lots', link: '/lots' },
-    { icon: '⚙️', label: 'Settings', link: '/settings' },
+    { icon: '🔐', label: 'Permissions', link: '/permissions' },
+    { icon: '📌', label: 'Badge Status', link: '/badgestatus' },
   ];
+  
   
   constructor(private router: Router, private location: Location) {}
 
@@ -34,11 +34,10 @@ export class SidebarComponent {
 
   navigateTo(link: string): void {
     if (this.location.path() !== link) {
-      this.router.navigateByUrl(link).then(() => {
-        window.location.reload(); // Force refresh if needed
-      });
+      this.router.navigateByUrl(link);
     }
   }
+  
 
   isActive(link: string): boolean {
     return this.location.path() === link;

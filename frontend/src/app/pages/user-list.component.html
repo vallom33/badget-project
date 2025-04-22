@@ -1,0 +1,26 @@
+<!-- Form لإضافة مستخدم جديد -->
+<h2>Ajouter un utilisateur</h2>
+<form (ngSubmit)="addUser()">
+  <label>Email:</label>
+  <input [(ngModel)]="newUser.email" name="newEmail" required>
+
+  <label>Nom d'utilisateur:</label>
+  <input [(ngModel)]="newUser.username" name="newUsername" required>
+
+  <label>Mot de passe:</label>
+  <input [(ngModel)]="newUser.password" name="newPassword" required>
+
+  <button type="submit">Ajouter</button>
+</form>
+
+<hr>
+
+<!-- قائمة المستخدمين -->
+<h2>Liste des utilisateurs</h2>
+<ul>
+  <li *ngFor="let user of users">
+    📧 {{ user.email }} | 👤 {{ user.username }} | 🔐 {{ user.password }}
+    <a [routerLink]="['/user/edit', user.id]">Modifier</a> |
+    <button (click)="deleteUser(user.id)">Supprimer</button>
+  </li>
+</ul>

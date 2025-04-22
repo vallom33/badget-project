@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
+@CrossOrigin(origins = "*")
 
 public class UserController{
 
@@ -36,6 +37,23 @@ public class UserController{
     public void deleteuser(@PathVariable Long id){
         userService.deleteuser(id);
     }
+
+    @PutMapping("/{id}")
+    public User updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
+        Optional<User> optionalUser = userService.getUserById(id);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            user.setEmail(updatedUser.getEmail());
+            user.setUsername(updatedUser.getUsername());
+            user.setPassword(updatedUser.getPassword());
+            // تجاهل الحقول المرتبطة مثل profile والـ employee الآن
+
+            return userService.createuser(user); // إعادة استخدام نفس دالة الحفظ
+        } else {
+            throw new RuntimeException("Utilisateur non trouvé avec l'ID: " + id);
+        }
+    }
+
 
 
 }

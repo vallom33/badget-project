@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router'; // Must be imported
 import { SidebarComponent } from './sidebar/sidebar.component';
+
 import { NgClass } from '@angular/common';
 
 @Component({

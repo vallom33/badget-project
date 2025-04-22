@@ -1,0 +1,13 @@
+<h2>Modifier Utilisateur</h2>
+<form (ngSubmit)="updateUser()">
+  <label>Email:</label>
+  <input [(ngModel)]="user.email" name="email" required />
+
+  <label>Nom d'utilisateur:</label>
+  <input [(ngModel)]="user.username" name="username" required />
+
+  <label>Mot de passe:</label>
+  <input [(ngModel)]="user.password" name="password" required />
+
+  <button type="submit">Sauvegarder</button>
+</form>
