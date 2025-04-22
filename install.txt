@@ -1,6 +1,6 @@
 =========================
 = Project Setup Guide   =
-= Author: Saiid         =
+= Author: omar         =
 = Project: badge-project=
 =========================
 
