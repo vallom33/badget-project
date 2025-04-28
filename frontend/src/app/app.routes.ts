@@ -9,6 +9,8 @@ import { ProfileEditComponent } from './pages/profile-edit.component';
 
 import { BadgeListComponent } from './pages/badge-list.component';
 import { BadgeEditComponent } from './pages/badge-edit.component';
+import { BadgeAddComponent } from './pages/badge-add.component';
+
 
 // Employees
 import { EmployeListComponent } from './pages/employe-list.component';
@@ -27,7 +29,7 @@ import { LotListComponent } from './pages/lot-list.component';
 import { LotEditComponent } from './pages/lot-edit.component';
 
 // Badge Status
-import { BadgestatusListComponent } from './pages/badgestatus-list.component';
+import { BadgeStatusListComponent } from './pages/badgestatus-list.component';
 import { BadgestatusEditComponent } from './pages/badgestatus-edit.component';
 
 export const routes: Routes = [
@@ -40,6 +42,7 @@ export const routes: Routes = [
 
   { path: 'badges', component: BadgeListComponent },
   { path: 'badges/edit/:id', component: BadgeEditComponent },
+  { path: 'badges/add', component: BadgeAddComponent },
 
   // Employees
   { path: 'employes', component: EmployeListComponent },
@@ -58,7 +61,7 @@ export const routes: Routes = [
   { path: 'lots/edit/:id', component: LotEditComponent },
 
   // Badge Status
-  { path: 'badgestatus', component: BadgestatusListComponent },
+  { path: 'badgestatus', component: BadgeStatusListComponent },
   { path: 'badgestatus/edit/:id', component: BadgestatusEditComponent },
 
   // Default and fallback

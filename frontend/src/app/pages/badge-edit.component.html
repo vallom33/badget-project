@@ -1,1 +1,31 @@
-<p>badge-edit works!</p>
+<!-- src/app/badge/badge-edit.component.html -->
+<h2>Modifier le Badge</h2>
+<form (ngSubmit)="saveBadge()">
+  <label>Nom:</label>
+  <input [(ngModel)]="badge.prenom" name="prenom" required>
+
+  <label>Nom d'utilisateur:</label>
+  <input [(ngModel)]="badge.username" name="username" required>
+
+  <label>Status:</label>
+  <input [(ngModel)]="badge.status" name="status" required>
+
+  <label>Type de badge:</label>
+  <input [(ngModel)]="badge.badgeType" name="badgeType">
+
+  <label>Date d'émission:</label>
+  <input type="date" [(ngModel)]="badge.issueDate" name="issueDate">
+
+  <label>Date d'expiration:</label>
+  <input type="date" [(ngModel)]="badge.expiryDate" name="expiryDate">
+
+  <label>URL de la photo:</label>
+  <input [(ngModel)]="badge.photoUrl" name="photoUrl">
+
+  <div *ngIf="badge.photoUrl">
+    <h3>Prévisualisation de la photo:</h3>
+    <img [src]="badge.photoUrl" alt="Badge Photo" width="100">
+  </div>
+
+  <button type="submit">Enregistrer</button>
+</form>

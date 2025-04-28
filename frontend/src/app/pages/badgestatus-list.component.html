@@ -1,1 +1,16 @@
-<p>badgestatus-list works!</p>
+<h2>Ajouter un Statut de Badge</h2>
+<form (ngSubmit)="addStatus()">
+  <label>Statut:</label>
+  <input [(ngModel)]="newStatus.status" name="status" required>
+  <button type="submit">Ajouter</button>
+</form>
+
+<hr>
+
+<h2>Liste des Statuts</h2>
+<ul>
+  <li *ngFor="let s of statuses">
+    📛 {{ s.status }}
+    <button (click)="s.id && deleteStatus(s.id)">Supprimer</button>
+  </li>
+</ul>

@@ -9,33 +9,39 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/badges")
+@RequestMapping("/badges") // مسار أفضل واحترافي أكثر
+@CrossOrigin(origins = "*") // مهم لو تعمل مع Angular
+public class BadgeController {
 
-public class BadgeController{
+    private final BadgeService badgeService;
 
     @Autowired
-    private BadgeService badgeService;
+    public BadgeController(BadgeService badgeService) {
+        this.badgeService = badgeService;
+    }
 
     @GetMapping
-    public List<Badge> getAllBadge(){
-        return badgeService.getAllBadge();
+    public List<Badge> getAllBadges() {
+        return badgeService.getAllBadges();
     }
 
     @GetMapping("/{id}")
-    public Optional<Badge> getBadgeById(@PathVariable  Long id){
+    public Optional<Badge> getBadgeById(@PathVariable Long id) {
         return badgeService.getBadgeById(id);
-
     }
 
     @PostMapping
-    public Badge createbadge(@RequestBody Badge badge){
-        return badgeService.createbadge(badge);
-
+    public Badge createBadge(@RequestBody Badge badge) {
+        return badgeService.createBadge(badge);
     }
+
+    @PutMapping("/{id}")
+    public Badge updateBadge(@PathVariable Long id, @RequestBody Badge updatedBadge) {
+        return badgeService.updateBadge(id, updatedBadge);
+    }
+
     @DeleteMapping("/{id}")
-    public void deletebadge(@PathVariable Long id){
-        badgeService.deletebadge(id);
+    public void deleteBadge(@PathVariable Long id) {
+        badgeService.deleteBadge(id);
     }
-
-
 }

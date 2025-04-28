@@ -21,6 +21,6 @@
   <li *ngFor="let user of users">
     📧 {{ user.email }} | 👤 {{ user.username }} | 🔐 {{ user.password }}
     <a [routerLink]="['/user/edit', user.id]">Modifier</a> |
-    <button (click)="deleteUser(user.id)">Supprimer</button>
+    <button (click)="user.id && deleteUser(user.id)">Supprimer</button>
   </li>
 </ul>

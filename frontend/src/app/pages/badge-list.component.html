@@ -1,1 +1,49 @@
-<p>badge-list works!</p>
+<!-- src/app/badge/badge-list.component.html -->
+<h2>Ajouter un Badge</h2>
+<form (ngSubmit)="addBadge()">
+  <label>Nom:</label>
+  <input [(ngModel)]="newBadge.prenom" name="newPrenom" required>
+
+  <label>Nom d'utilisateur:</label>
+  <input [(ngModel)]="newBadge.username" name="newUsername" required>
+
+  <label>Status:</label>
+  <input [(ngModel)]="newBadge.status" name="newStatus" required>
+
+  <label>Type de badge:</label>
+  <input [(ngModel)]="newBadge.badgeType" name="newBadgeType">
+
+  <label>Date d'émission:</label>
+  <input type="date" [(ngModel)]="newBadge.issueDate" name="newIssueDate">
+
+  <label>Date d'expiration:</label>
+  <input type="date" [(ngModel)]="newBadge.expiryDate" name="newExpiryDate">
+
+  <label>URL de la photo:</label>
+  <input [(ngModel)]="newBadge.photoUrl" name="newPhotoUrl">
+
+  <button type="submit">Ajouter</button>
+</form>
+
+<hr>
+
+<h2>Liste des Badges</h2>
+<ul>
+  <li *ngFor="let badge of badges">
+    👤 {{ badge.username }} | 📛 {{ badge.prenom }} | 📌 {{ badge.status }}
+    <br>
+    🏷️ Type: {{ badge.badgeType || 'N/A' }} |
+    📅 Émission: {{ badge.issueDate || 'N/A' }} |
+    📅 Expiration: {{ badge.expiryDate || 'N/A' }}
+    <br>
+    🖼️ Photo: 
+    <span *ngIf="badge.photoUrl">
+      <img [src]="badge.photoUrl" alt="Badge Photo" width="50">
+    </span>
+    <span *ngIf="!badge.photoUrl">N/A</span>
+    <br>
+    <a [routerLink]="['/badges/edit', badge.id]">Modifier</a> |
+    <button (click)="badge.id && deleteBadge(badge.id)">Supprimer</button>
+    <hr>
+  </li>
+</ul>

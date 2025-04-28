@@ -1,13 +1,25 @@
-<h2>Ajouter un utilisateur</h2>
-<form (ngSubmit)="addUser()">
-  <label>Email:</label>
-  <input [(ngModel)]="user.email" name="email" required>
+<h2>إضافة مستخدم جديد</h2>
 
-  <label>Nom d'utilisateur:</label>
-  <input [(ngModel)]="user.username" name="username" required>
+<form (ngSubmit)="addUser()" #f="ngForm">
+  <label for="email">البريد الإلكتروني:</label>
+  <input id="email"
+         type="email"
+         [(ngModel)]="user.email"
+         name="email"
+         required />
 
-  <label>Mot de passe:</label>
-  <input [(ngModel)]="user.password" name="password" type="password" required>
+  <label for="username">اسم المستخدم:</label>
+  <input id="username"
+         [(ngModel)]="user.username"
+         name="username"
+         required />
 
-  <button type="submit">Ajouter</button>
+  <label for="password">كلمة المرور:</label>
+  <input id="password"
+         type="password"
+         [(ngModel)]="user.password"
+         name="password"
+         required />
+
+  <button type="submit">إضافة</button>
 </form>

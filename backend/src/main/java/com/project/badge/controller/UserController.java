@@ -11,49 +11,33 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/users")
 @CrossOrigin(origins = "*")
-
-public class UserController{
+public class UserController {
 
     @Autowired
     private UserService userService;
 
     @GetMapping
-    public List<User> getAllUsers(){
+    public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
 
     @GetMapping("/{id}")
-    public Optional<User> getUserById(@PathVariable  Long id){
+    public Optional<User> getUserById(@PathVariable Long id) {
         return userService.getUserById(id);
-
     }
 
     @PostMapping
-    public User createuser(@RequestBody User user){
-        return userService.createuser(user);
-
-    }
-    @DeleteMapping("/{id}")
-    public void deleteuser(@PathVariable Long id){
-        userService.deleteuser(id);
+    public User createUser(@RequestBody User user) {
+        return userService.createUser(user);
     }
 
     @PutMapping("/{id}")
     public User updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
-        Optional<User> optionalUser = userService.getUserById(id);
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            user.setEmail(updatedUser.getEmail());
-            user.setUsername(updatedUser.getUsername());
-            user.setPassword(updatedUser.getPassword());
-            // تجاهل الحقول المرتبطة مثل profile والـ employee الآن
-
-            return userService.createuser(user); // إعادة استخدام نفس دالة الحفظ
-        } else {
-            throw new RuntimeException("Utilisateur non trouvé avec l'ID: " + id);
-        }
+        return userService.updateUser(id, updatedUser);
     }
 
-
-
+    @DeleteMapping("/{id}")
+    public void deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+    }
 }

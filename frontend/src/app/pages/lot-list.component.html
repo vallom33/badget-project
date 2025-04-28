@@ -1,1 +1,20 @@
-<p>lot-list works!</p>
+<h2>Ajouter un Lot</h2>
+<form (ngSubmit)="addLot()">
+  <label>Nombre:</label>
+  <input [(ngModel)]="newLot.nombre" name="nombre" type="number" required>
+
+  <label>Date:</label>
+  <input [(ngModel)]="newLot.date" name="date" required>
+
+  <button type="submit">Ajouter</button>
+</form>
+
+<hr>
+
+<h2>Liste des Lots</h2>
+<ul>
+  <li *ngFor="let l of lots">
+    📦 {{ l.nombre }} badges | 📅 {{ l.date }}
+    <button (click)="l.id && deleteLot(l.id)">Supprimer</button>
+  </li>
+</ul>

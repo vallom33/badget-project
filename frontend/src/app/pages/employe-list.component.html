@@ -1,1 +1,23 @@
-<p>employe-list works!</p>
+<h2>Ajouter un Employé</h2>
+<form (ngSubmit)="addEmploye()">
+  <label>Nom d'utilisateur:</label>
+  <input [(ngModel)]="newEmploye.username" name="username" required>
+
+  <label>Email:</label>
+  <input [(ngModel)]="newEmploye.email" name="email" required>
+
+  <label>Mot de passe:</label>
+  <input [(ngModel)]="newEmploye.password" name="password" required>
+
+  <button type="submit">Ajouter</button>
+</form>
+
+<hr>
+
+<h2>Liste des Employés</h2>
+<ul>
+  <li *ngFor="let emp of employes">
+    👤 {{ emp.username }} | ✉️ {{ emp.email }}
+    <button (click)="emp.id && deleteEmploye(emp.id)">Supprimer</button>
+  </li>
+</ul>

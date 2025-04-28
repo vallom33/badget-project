@@ -1,1 +1,21 @@
-<p>profile-list works!</p>
+<h2>Ajouter un profile</h2>
+<form (ngSubmit)="addProfile()">
+  <label>Libelle:</label>
+  <input [(ngModel)]="newProfile.libelle" name="newLibelle" required>
+
+  <label>NNI:</label>
+  <input [(ngModel)]="newProfile.nni" name="newNni" required>
+
+  <button type="submit">Ajouter</button>
+</form>
+
+<hr>
+
+<h2>Liste des Profiles</h2>
+<ul>
+  <li *ngFor="let profile of profiles">
+    🧾 {{ profile.libelle }} | 🆔 NNI: {{ profile.nni }}
+    <a [routerLink]="['/profile/edit', profile.id]">Modifier</a> |
+    <button (click)="profile.id && deleteProfile(profile.id)">Supprimer</button>
+  </li>
+</ul>
