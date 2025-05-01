@@ -1,0 +1,12 @@
+<div class="login-container">
+    <h2>تسجيل الدخول</h2>
+    <form (ngSubmit)="onLogin()">
+      <label>اسم المستخدم:</label>
+      <input [(ngModel)]="username" name="username" required /><br><br>
+      <label>كلمة المرور:</label>
+      <input [(ngModel)]="password" name="password" type="password" required />
+      <button type="submit">دخول</button>
+    </form>
+    <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+  </div>
+  

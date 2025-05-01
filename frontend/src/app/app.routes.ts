@@ -1,4 +1,7 @@
 import { Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LoginComponent } from './components/login.component';
 
 import { UserListComponent } from './pages/user-list.component';
 import { UserEditComponent } from './pages/user-edit.component';
@@ -33,38 +36,43 @@ import { BadgeStatusListComponent } from './pages/badgestatus-list.component';
 import { BadgestatusEditComponent } from './pages/badgestatus-edit.component';
 
 export const routes: Routes = [
-  { path: 'user', component: UserListComponent },
+
+  { path: 'login', component: LoginComponent },
+  
+
+
+  { path: 'user', component: UserListComponent, canActivate: [AuthGuard] },
   { path: 'user/edit/:id', component: UserEditComponent },
   { path: 'user/add', component: UserAddComponent },
 
-  { path: 'profile', component: ProfileListComponent },
+  { path: 'profile', component: ProfileListComponent , canActivate: [AuthGuard]},
   { path: 'profile/edit/:id', component: ProfileEditComponent },
 
-  { path: 'badges', component: BadgeListComponent },
+  { path: 'badges', component: BadgeListComponent , canActivate: [AuthGuard]},
   { path: 'badges/edit/:id', component: BadgeEditComponent },
   { path: 'badges/add', component: BadgeAddComponent },
 
   // Employees
-  { path: 'employes', component: EmployeListComponent },
+  { path: 'employes', component: EmployeListComponent , canActivate: [AuthGuard]},
   { path: 'employes/edit/:id', component: EmployeEditComponent },
 
   // Authorities
-  { path: 'authorities', component: AuthorityListComponent },
+  { path: 'authorities', component: AuthorityListComponent, canActivate: [AuthGuard] },
   { path: 'authorities/edit/:id', component: AuthorityEditComponent },
 
   // Permissions
-  { path: 'permissions', component: PermissionListComponent },
+  { path: 'permissions', component: PermissionListComponent, canActivate: [AuthGuard] },
   { path: 'permissions/edit/:id', component: PermissionEditComponent },
 
   // Lots
-  { path: 'lots', component: LotListComponent },
+  { path: 'lots', component: LotListComponent, canActivate: [AuthGuard] },
   { path: 'lots/edit/:id', component: LotEditComponent },
 
   // Badge Status
-  { path: 'badgestatus', component: BadgeStatusListComponent },
+  { path: 'badgestatus', component: BadgeStatusListComponent, canActivate: [AuthGuard] },
   { path: 'badgestatus/edit/:id', component: BadgestatusEditComponent },
 
   // Default and fallback
-  { path: '', redirectTo: '/user', pathMatch: 'full' },
-  { path: '**', redirectTo: '/user' }
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '**', redirectTo: '/login' },
 ];
