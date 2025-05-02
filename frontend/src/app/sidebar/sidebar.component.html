@@ -1,25 +1,26 @@
 <div class="sidebar" [ngClass]="{ 'sidebar-collapsed': isSidebarCollapsed }">
-  <!-- Header with app name and close button -->
   <div class="sidebar-header">
     <span>{{ isSidebarCollapsed ? 'M' : 'Badge_proj' }}</span>
     <button (click)="toggleSidebar()">✖️</button>
   </div>
 
-  <!-- Optional user section -->
   <div class="sidebar-user" *ngIf="currentUser && !isSidebarCollapsed">
-    
-    👋 Welcome chey5n, <strong>{{ currentUser.username }}</strong>
+    👋 مرحبًا، <strong>{{ currentUser.username }}</strong>
   </div>
 
-  <!-- Menu items -->
   <ul class="sidebar-menu">
-    <li *ngFor="let item of menuItems" 
+    <li *ngFor="let item of menuItems"
         [class.active]="isActive(item.link)"
         (click)="navigateTo(item.link)">
       <span>
-        {{ item.icon }} 
+        {{ item.icon }}
         <span *ngIf="!isSidebarCollapsed">{{ item.label }}</span>
       </span>
     </li>
   </ul>
+
+  <!-- زر تسجيل الخروج -->
+  <div class="logout" (click)="onLogout()" style="cursor: pointer; margin: 1rem;">
+    🚪 <span *ngIf="!isSidebarCollapsed">Logout</span>
+  </div>
 </div>

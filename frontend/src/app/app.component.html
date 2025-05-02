@@ -1,13 +1,12 @@
 <div class="app-container">
-  <!-- Sidebar -->
   <app-sidebar 
+    *ngIf="!isLoginPage"
     [isSidebarCollapsed]="isSidebarCollapsed"
     [currentUser]="currentUser"
     (sidebarToggle)="onSidebarToggle()">
   </app-sidebar>
 
-  <!-- Main Content -->
-  <main class="content" [ngClass]="{'content-expanded': isSidebarCollapsed}">
-    <router-outlet></router-outlet> <!-- This will render the active route component -->
+  <main class="content" [class.content-expanded]="isSidebarCollapsed">
+    <router-outlet></router-outlet>
   </main>
 </div>

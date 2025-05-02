@@ -1,4 +1,3 @@
-// src/app/badge/badge-list.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BadgeService, Badge } from '../services/badge.service';
@@ -30,28 +29,18 @@ export class BadgeListComponent implements OnInit {
   }
 
   loadBadges(): void {
-    this.badgeService.getBadges().subscribe((data: Badge[]) => {
-      this.badges = data;
-    });
+    this.badgeService.getBadges().subscribe(data => this.badges = data);
   }
 
   addBadge(): void {
-    this.badgeService.createBadge(this.newBadge).subscribe((createdBadge: Badge) => {
-      this.badges.push(createdBadge);
-      this.newBadge = {
-        username: '',
-        prenom: '',
-        status: '',
-        badgeType: '',
-        issueDate: '',
-        expiryDate: '',
-        photoUrl: ''
-      };
+    this.badgeService.createBadge(this.newBadge).subscribe(created => {
+      this.badges.push(created);
+      this.newBadge = { username: '', prenom: '', status: '', badgeType: '', issueDate: '', expiryDate: '', photoUrl: '' };
     });
   }
 
   deleteBadge(id: number): void {
-    if (confirm('Êtes-vous sûr de vouloir supprimer ce badge ?')) {
+    if (confirm('Are you sure you want to delete this badge?')) {
       this.badgeService.deleteBadge(id).subscribe(() => {
         this.badges = this.badges.filter(b => b.id !== id);
       });

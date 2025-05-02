@@ -1,20 +1,25 @@
-<h2>Ajouter un Nouveau Badge</h2>
-
+<h2>Add New Badge</h2>
 <form (ngSubmit)="saveBadge()">
-  <label>Nom d'utilisateur:</label>
-  <input type="text" [(ngModel)]="badge.username" name="username" required>
+  <label>Username:</label>
+  <input [(ngModel)]="badge.username" name="username" required />
 
-  <label>Prénom:</label>
-  <input type="text" [(ngModel)]="badge.prenom" name="prenom" required>
+  <label>First Name:</label>
+  <input [(ngModel)]="badge.prenom" name="prenom" required />
 
   <label>Status:</label>
-  <input type="text" [(ngModel)]="badge.status" name="status" required>
+  <input [(ngModel)]="badge.status" name="status" required />
 
-  <label>Type de Badge:</label>
-  <input type="text" [(ngModel)]="badge.badgeType" name="badgeType">
+  <label>Badge Type:</label>
+  <input [(ngModel)]="badge.badgeType" name="badgeType" />
 
-  <label>URL de la Photo:</label>
-  <input type="text" [(ngModel)]="badge.photoUrl" name="photoUrl">
+  <label>Issue Date:</label>
+  <input type="date" [(ngModel)]="badge.issueDate" name="issueDate" />
 
-  <button type="submit">Enregistrer</button>
+  <label>Expiry Date:</label>
+  <input type="date" [(ngModel)]="badge.expiryDate" name="expiryDate" />
+
+  <label>Photo URL:</label>
+  <input [(ngModel)]="badge.photoUrl" name="photoUrl" />
+
+  <button type="submit">Save</button>
 </form>

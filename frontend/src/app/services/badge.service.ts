@@ -1,4 +1,3 @@
-// src/app/services/badge.service.ts
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -9,15 +8,10 @@ export interface Badge {
   prenom: string;
   status: string;
   badgeType?: string;
-  issueDate?: string;  // نستخدم string مع LocalDate
+  issueDate?: string;
   expiryDate?: string;
   photoUrl?: string;
-
-  badgeStatus?: {
-    id: number;
-    status: string;
-  };
-
+  badgeStatus?: { id: number; status: string };
   employe?: any;
   lot?: any;
 }
@@ -39,8 +33,8 @@ export class BadgeService {
   }
 
   createBadge(badge: Badge): Observable<Badge> {
-    const { id, ...badgeData } = badge;
-    return this.http.post<Badge>(this.apiUrl, badgeData);
+    const { id, ...data } = badge;
+    return this.http.post<Badge>(this.apiUrl, data);
   }
 
   updateBadge(badge: Badge): Observable<Badge> {

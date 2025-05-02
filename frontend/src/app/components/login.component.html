@@ -1,12 +1,16 @@
-<div class="login-container">
-    <h2>تسجيل الدخول</h2>
+<div class="login-wrapper">
+  <div class="login-container">
+    <img src="/assets/snim.png" alt="Logo" class="logo" />
+    <h2>Login</h2>
     <form (ngSubmit)="onLogin()">
-      <label>اسم المستخدم:</label>
-      <input [(ngModel)]="username" name="username" required /><br><br>
-      <label>كلمة المرور:</label>
+      <label for="username">Username:</label>
+      <input [(ngModel)]="username" name="username" required /><br /><br />
+      
+      <label for="password">Password:</label>
       <input [(ngModel)]="password" name="password" type="password" required />
-      <button type="submit">دخول</button>
+      
+      <button type="submit">Login</button>
     </form>
     <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
   </div>
-  
+</div>

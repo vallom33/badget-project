@@ -10,7 +10,6 @@ import { isPlatformBrowser } from '@angular/common';
 export class AuthService {
   private baseUrl = 'http://localhost:8080/auth';
 
-  // نعرفة PLATFORM_ID للتحقق إذا في browser
   constructor(
     private http: HttpClient,
     @Inject(PLATFORM_ID) private platformId: Object
@@ -18,7 +17,7 @@ export class AuthService {
 
   login(username: string, password: string): Observable<HttpResponse<any>> {
     return this.http.post(
-      `${this.baseUrl}/login`,
+      `${this.baseUrl}/login`, // ✅ أصلحنا التنسيق هنا باستخدام backticks
       { username, password },
       { observe: 'response' }
     );
@@ -45,5 +44,26 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     return !!this.getToken();
+  }
+
+  // ✅ دالة استخراج بيانات المستخدم من JWT
+  getCurrentUser() {
+    const token = this.getToken();
+    if (token) {
+      const payload = this.decodeToken(token);
+      return payload;
+    }
+    return null;
+  }
+
+  // ✅ دالة تحليل التوكن
+  private decodeToken(token: string): any {
+    try {
+      const payload = token.split('.')[1];
+      const decoded = atob(payload); // base64 → JSON
+      return JSON.parse(decoded);
+    } catch (e) {
+      return null;
+    }
   }
 }

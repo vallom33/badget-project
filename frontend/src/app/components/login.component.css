@@ -1,0 +1,47 @@
+/* 1. تأكد من أن الـ html و body يملآن كامل الارتفاع */
+:host {
+  display: block;
+  height: 100vh;   /* viewport height */
+}
+
+/* 2. يوسّط محتوى الـ login-wrapper بالكامل */
+.login-wrapper {
+  display: flex;
+  justify-content: center; /* أفقيًا */
+  align-items: center;     /* عموديًا */
+  height: 100%;            /* يملأ الـ host بالكامل */
+  background-color: #f0f2f5;
+}
+
+/* 3. تصميم صندوق تسجيل الدخول */
+.login-container {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
+  width: 350px;
+  text-align: center;
+}
+
+/* 4. الشعار */
+.logo {
+  width: 120px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+/* 5. أزرار وحقل الخطأ */
+button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
+}

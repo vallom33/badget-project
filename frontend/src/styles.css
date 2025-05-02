@@ -2,4 +2,13 @@
 body {
     background-color: #1e1e1e;
     color: white;
+
+    
   }
+
+  /* يضمن ارتفاع كامل للصفحة */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}

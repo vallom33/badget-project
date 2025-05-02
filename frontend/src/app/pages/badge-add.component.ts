@@ -16,14 +16,16 @@ export class BadgeAddComponent {
     prenom: '',
     status: '',
     badgeType: '',
-    photoUrl: '',
+    issueDate: '',
+    expiryDate: '',
+    photoUrl: ''
   };
 
   constructor(private badgeService: BadgeService, private router: Router) {}
 
   saveBadge() {
     this.badgeService.createBadge(this.badge).subscribe(() => {
-      this.router.navigate(['/badges']); // يرجعك إلى قائمة البادجات بعد الإضافة
+      this.router.navigate(['/badges']);
     });
   }
 }

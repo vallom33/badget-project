@@ -1,4 +1,3 @@
-// src/app/interceptors/auth.interceptor.ts
 import { Injectable } from '@angular/core';
 import {
   HttpInterceptor,
@@ -11,16 +10,13 @@ import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthService) {}
+  constructor(private auth: AuthService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (req.url.endsWith('/auth/login')) {
-      return next.handle(req);
-    }
-    const token = this.authService.getToken();
+    const token = this.auth.getToken();
     if (token) {
       const authReq = req.clone({
-        headers: req.headers.set('Authorization', `Bearer ${token}`)
+        setHeaders: { Authorization: `Bearer ${token}` }
       });
       return next.handle(authReq);
     }

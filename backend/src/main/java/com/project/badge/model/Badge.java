@@ -11,10 +11,10 @@ public class Badge {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="username", nullable = true, unique = true)
+    @Column(name="username", nullable = true)
     private String username;
 
-    @Column(name="prenom", nullable = true, unique = true)
+    @Column(name="prenom", nullable = true)
     private String prenom;
 
     @Column(name="status", nullable = true)

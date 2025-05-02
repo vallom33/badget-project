@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
+import { Router, RouterModule, NavigationEnd } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,7 +13,7 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class SidebarComponent {
   @Input() isSidebarCollapsed = false;
-  @Input() currentUser: any; // 👈 أضف هذا السطر
+  @Input() currentUser: any;
   @Output() sidebarToggle = new EventEmitter<void>();
 
   menuItems = [
@@ -24,9 +26,8 @@ export class SidebarComponent {
     { icon: '🔐', label: 'Permissions', link: '/permissions' },
     { icon: '📌', label: 'Badge Status', link: '/badgestatus' },
   ];
-  
-  
-  constructor(private router: Router, private location: Location) {}
+
+  constructor(private router: Router, private location: Location, private authService: AuthService) {}
 
   toggleSidebar() {
     this.sidebarToggle.emit();
@@ -37,9 +38,13 @@ export class SidebarComponent {
       this.router.navigateByUrl(link);
     }
   }
-  
 
   isActive(link: string): boolean {
     return this.location.path() === link;
+  }
+
+  onLogout(): void {
+    this.authService.logout();
+    this.router.navigateByUrl('/login');
   }
 }
