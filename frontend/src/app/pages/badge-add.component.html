@@ -1,16 +1,17 @@
 <h2>Add New Badge</h2>
+
 <form (ngSubmit)="saveBadge()">
   <label>Username:</label>
-  <input [(ngModel)]="badge.username" name="username" required />
+  <input type="text" [(ngModel)]="badge.username" name="username" required />
 
   <label>First Name:</label>
-  <input [(ngModel)]="badge.prenom" name="prenom" required />
+  <input type="text" [(ngModel)]="badge.prenom" name="prenom" required />
 
   <label>Status:</label>
-  <input [(ngModel)]="badge.status" name="status" required />
+  <input type="text" [(ngModel)]="badge.status" name="status" required />
 
   <label>Badge Type:</label>
-  <input [(ngModel)]="badge.badgeType" name="badgeType" />
+  <input type="text" [(ngModel)]="badge.badgeType" name="badgeType" />
 
   <label>Issue Date:</label>
   <input type="date" [(ngModel)]="badge.issueDate" name="issueDate" />
@@ -19,7 +20,14 @@
   <input type="date" [(ngModel)]="badge.expiryDate" name="expiryDate" />
 
   <label>Photo URL:</label>
-  <input [(ngModel)]="badge.photoUrl" name="photoUrl" />
+  <input type="text" [(ngModel)]="badge.photoUrl" name="photoUrl" />
+
+  <label>Badge Status:</label>
+  <select [(ngModel)]="badge.badgeStatus.id" name="badgeStatus" required>
+    <option [ngValue]="1">Active</option>
+    <option [ngValue]="2">Expired</option>
+    <!-- أضف حسب بياناتك جدول badge_status -->
+  </select>
 
   <button type="submit">Save</button>
 </form>

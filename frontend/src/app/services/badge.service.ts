@@ -11,7 +11,11 @@ export interface Badge {
   issueDate?: string;
   expiryDate?: string;
   photoUrl?: string;
-  badgeStatus?: { id: number; status: string };
+
+  // ▪️ أضفنا badgeStatus ليكون مطلوباً
+  badgeStatus: {
+    id: number;
+  };
   employe?: any;
   lot?: any;
 }

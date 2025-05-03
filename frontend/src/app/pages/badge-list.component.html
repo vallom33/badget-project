@@ -1,45 +1,32 @@
-<h2>Add New Badge</h2>
-<form (ngSubmit)="addBadge()">
-  <label>Username:</label>
-  <input [(ngModel)]="newBadge.username" name="username" required />
+<h2>Ajouter un badge</h2>
+<form (ngSubmit)="addBadge()" class="compact-form">
+  <input placeholder="Username" [(ngModel)]="newBadge.username" name="username" required>
+  <input placeholder="First Name" [(ngModel)]="newBadge.prenom" name="prenom" required>
+  
+  <select [(ngModel)]="newBadge.badgeStatus.id" name="badgeStatus" required>
+    <option [ngValue]="1">Active</option>
+    <option [ngValue]="2">Expired</option>
+  </select>
+  
+  <input placeholder="Badge Type" [(ngModel)]="newBadge.badgeType" name="badgeType">
+  <input type="date" placeholder="Issue Date" [(ngModel)]="newBadge.issueDate" name="issueDate">
+  <input type="date" placeholder="Expiry Date" [(ngModel)]="newBadge.expiryDate" name="expiryDate">
+  <input placeholder="Photo URL" [(ngModel)]="newBadge.photoUrl" name="photoUrl">
 
-  <label>First Name:</label>
-  <input [(ngModel)]="newBadge.prenom" name="prenom" required />
-
-  <label>Status:</label>
-  <input [(ngModel)]="newBadge.status" name="status" required />
-
-  <label>Badge Type:</label>
-  <input [(ngModel)]="newBadge.badgeType" name="badgeType" />
-
-  <label>Issue Date:</label>
-  <input type="date" [(ngModel)]="newBadge.issueDate" name="issueDate" />
-
-  <label>Expiry Date:</label>
-  <input type="date" [(ngModel)]="newBadge.expiryDate" name="expiryDate" />
-
-  <label>Photo URL:</label>
-  <input [(ngModel)]="newBadge.photoUrl" name="photoUrl" />
-
-  <button type="submit">Add</button>
+  <button type="submit">Ajouter</button>
 </form>
 
-<hr />
+<hr>
 
-<h2>Badge List</h2>
-<ul>
-  <li *ngFor="let badge of badges">
-    <strong>{{ badge.prenom }} ({{ badge.username }})</strong> — {{ badge.status }}
-    <br />
-    <span>Type: {{ badge.badgeType || 'N/A' }}</span> |
-    <span>Issued: {{ badge.issueDate || 'N/A' }}</span> |
-    <span>Expiry: {{ badge.expiryDate || 'N/A' }}</span>
-    <br />
-    <img *ngIf="badge.photoUrl" [src]="badge.photoUrl" alt="Photo" width="50" />
-    <span *ngIf="!badge.photoUrl">No photo</span>
-    <br />
-    <a [routerLink]="['/badges/edit', badge.id]">Edit</a> |
-    <button (click)="deleteBadge(badge.id!)">Delete</button>
-    <hr />
-  </li>
-</ul>
+<h2>Liste des badges</h2>
+<div class="scrollable">
+  <ul>
+    <li *ngFor="let b of badges" class="item">
+      <img *ngIf="b.photoUrl" [src]="b.photoUrl" alt="photo" class="thumb">
+      👤 {{ b.prenom }} ({{ b.username }}) |
+      📌 {{ b.badgeStatus.id === 1 ? 'Active' : 'Expired' }} |
+      <a [routerLink]="['/badges/edit', b.id]">Modifier</a> |
+      <button (click)="deleteBadge(b.id!)">Supprimer</button>
+    </li>
+  </ul>
+</div>

@@ -18,14 +18,17 @@ export class BadgeAddComponent {
     badgeType: '',
     issueDate: '',
     expiryDate: '',
-    photoUrl: ''
+    photoUrl: '',
+    // ▪️ أضفنا badgeStatus الافتراضي
+    badgeStatus: { id: 1 }
   };
 
   constructor(private badgeService: BadgeService, private router: Router) {}
 
   saveBadge() {
-    this.badgeService.createBadge(this.badge).subscribe(() => {
-      this.router.navigate(['/badges']);
+    this.badgeService.createBadge(this.badge).subscribe({
+      next: () => this.router.navigate(['/badges']),
+      error: err => console.error('Error creating badge', err)
     });
   }
 }
