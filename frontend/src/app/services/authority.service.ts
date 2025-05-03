@@ -9,9 +9,7 @@ export interface Authorite {
   role: string;
 }
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class AuthoriteService {
   private apiUrl = 'http://localhost:8080/authorites';
 

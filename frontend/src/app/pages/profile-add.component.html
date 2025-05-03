@@ -1,11 +1,15 @@
 <h2>Add New Profile</h2>
-<form (ngSubmit)="addProfile()" class="compact-form">
+
+<form (ngSubmit)="save()" class="compact-form">
+  <!-- اختيار المستخدم -->
   <select [(ngModel)]="newProfile.user!.id" name="user" required>
     <option [ngValue]="0" disabled>— Select User —</option>
     <option *ngFor="let u of users" [ngValue]="u.id">
       {{ u.username }}
     </option>
   </select>
+
+  <!-- الحقول -->
   <input
     placeholder="Libelle"
     [(ngModel)]="newProfile.libelle"
@@ -28,22 +32,8 @@
     [(ngModel)]="newProfile.photoUrl"
     name="photoUrl"
   />
-  <button type="submit">Add</button>
+
+  <!-- الأزرار -->
+  <button type="submit">Save</button>
+  <button type="button" (click)="cancel()">Cancel</button>
 </form>
-
-<hr>
-
-<h2>Profile List</h2>
-<div class="scrollable">
-  <ul>
-    <li *ngFor="let p of profiles" class="item">
-      <img *ngIf="p.photoUrl" [src]="p.photoUrl" alt="photo" class="thumb" />
-      👤 {{ p.user ? getUsername(p.user.id!) : '—' }}
-      📋 {{ p.libelle }} |
-      🆔 {{ p.nni }} |
-      📞 {{ p.phone || '—' }} |
-      <a [routerLink]="['/profile/edit', p.id]">Edit</a>
-      <button (click)="deleteProfile(p.id!)">Delete</button>
-    </li>
-  </ul>
-</div>

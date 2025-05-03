@@ -1,1 +1,38 @@
-<p>profile-edit works!</p>
+<h2>Modifier un profil</h2>
+
+<form *ngIf="profile" (ngSubmit)="updateProfile()" class="compact-form">
+  <!-- Choix d'utilisateur -->
+  <select [(ngModel)]="profile.user!.id" name="user" required>
+    <option *ngFor="let u of users" [ngValue]="u.id">
+      {{ u.username }}
+    </option>
+  </select>
+
+  <!-- Champs -->
+  <input
+    placeholder="Libellé"
+    [(ngModel)]="profile.libelle"
+    name="libelle"
+    required
+  />
+  <input
+    placeholder="NNI"
+    [(ngModel)]="profile.nni"
+    name="nni"
+    required
+  />
+  <input
+    placeholder="Phone"
+    [(ngModel)]="profile.phone"
+    name="phone"
+  />
+  <input
+    placeholder="Photo URL"
+    [(ngModel)]="profile.photoUrl"
+    name="photoUrl"
+  />
+
+  <!-- Boutons -->
+  <button type="submit">Mettre à jour</button>
+  <button type="button" (click)="cancel()">Annuler</button>
+</form>

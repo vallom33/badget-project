@@ -1,1 +1,20 @@
-<p>lot-edit works!</p>
+<!-- src/app/lot/lot-edit.component.html -->
+
+<h2>Modifier Lot</h2>
+<form *ngIf="lot" (ngSubmit)="updateLot()" class="compact-form">
+  <input
+    type="number"
+    [(ngModel)]="lot.nombre"
+    name="nombre"
+    placeholder="Nombre de badges"
+    required
+  />
+  <input
+    type="date"
+    [(ngModel)]="lot.date"
+    name="date"
+    required
+  />
+  <button type="submit">Mettre à jour</button>
+  <button type="button" (click)="cancel()">Annuler</button>
+</form>

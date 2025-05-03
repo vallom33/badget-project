@@ -1,1 +1,8 @@
-<p>employe-edit works!</p>
+<h2>Modifier Employé</h2>
+<form *ngIf="employe" (ngSubmit)="update()" class="compact-form">
+  <input placeholder="Username"  [(ngModel)]="employe.username" name="username" required>
+  <input placeholder="Email"     [(ngModel)]="employe.email"    name="email"    type="email" required>
+  <input placeholder="Password"  [(ngModel)]="employe.password" name="password" type="password" required>
+  <button type="submit">Mettre à jour</button>
+  <button type="button" (click)="cancel()">Annuler</button>
+</form>

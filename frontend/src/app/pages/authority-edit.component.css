@@ -1,0 +1,16 @@
+/* src/app/authorite/authority-edit.component.css */
+.compact-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 1rem;
+  }
+  .compact-form select,
+  .compact-form input {
+    padding: 6px 8px;
+    font-size: 0.9rem;
+  }
+  .compact-form button {
+    padding: 6px 12px;
+  }
+  

@@ -1,0 +1,22 @@
+/* src/app/profile/profile-edit.component.css */
+
+/* نفس التنسيق المضغوط للـ form */
+.compact-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 1rem;
+}
+
+.compact-form select,
+.compact-form input {
+  padding: 4px 8px;
+  font-size: 0.9rem;
+  min-width: 120px;
+}
+
+.compact-form button {
+  padding: 4px 12px;
+  margin-right: 4px;
+  cursor: pointer;
+}

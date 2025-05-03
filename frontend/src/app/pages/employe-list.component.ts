@@ -1,44 +1,39 @@
-// src/app/employe/employe-list.component.ts
+// src/app/pages/employe-list.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { EmployeService, Employe } from '../services/employe.service';
 import { RouterModule } from '@angular/router';
+import { EmployeService, Employe } from '../services/employe.service';
 
 @Component({
   standalone: true,
   selector: 'app-employe-list',
   templateUrl: './employe-list.component.html',
+  styleUrls: ['./employe-list.component.css'],
   imports: [CommonModule, FormsModule, RouterModule],
 })
 export class EmployeListComponent implements OnInit {
   employes: Employe[] = [];
   newEmploye: Employe = { username: '', email: '', password: '' };
 
-  constructor(private employeService: EmployeService) {}
+  constructor(private svc: EmployeService) {}
 
   ngOnInit(): void {
-    this.loadEmployes();
+    this.load();
   }
-
-  loadEmployes(): void {
-    this.employeService.getEmployes().subscribe((data) => {
-      this.employes = data;
-    });
+  load() {
+    this.svc.getEmployes().subscribe(list => this.employes = list);
   }
-
-  addEmploye(): void {
-    this.employeService.createEmploye(this.newEmploye).subscribe((emp) => {
-      this.employes.push(emp);
+  add() {
+    this.svc.createEmploye(this.newEmploye).subscribe(e => {
+      this.employes.push(e);
       this.newEmploye = { username: '', email: '', password: '' };
     });
   }
-
-  deleteEmploye(id: number): void {
-    if (confirm('Supprimer cet employé ?')) {
-      this.employeService.deleteEmploye(id).subscribe(() => {
-        this.employes = this.employes.filter(e => e.id !== id);
-      });
-    }
+  delete(id: number) {
+    if (!confirm('Supprimer cet employé ?')) return;
+    this.svc.deleteEmploye(id).subscribe(() => {
+      this.employes = this.employes.filter(e => e.id !== id);
+    });
   }
 }

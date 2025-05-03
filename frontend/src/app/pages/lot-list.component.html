@@ -1,20 +1,33 @@
+<!-- src/app/lot/lot-list.component.html -->
+
 <h2>Ajouter un Lot</h2>
-<form (ngSubmit)="addLot()">
-  <label>Nombre:</label>
-  <input [(ngModel)]="newLot.nombre" name="nombre" type="number" required>
-
-  <label>Date:</label>
-  <input [(ngModel)]="newLot.date" name="date" required>
-
+<form (ngSubmit)="addLot()" class="compact-form">
+  <input
+    type="number"
+    placeholder="Nombre de badges"
+    [(ngModel)]="newLot.nombre"
+    name="nombre"
+    required
+  />
+  <input
+    type="date"
+    [(ngModel)]="newLot.date"
+    name="date"
+    required
+  />
   <button type="submit">Ajouter</button>
 </form>
 
 <hr>
 
 <h2>Liste des Lots</h2>
-<ul>
-  <li *ngFor="let l of lots">
-    📦 {{ l.nombre }} badges | 📅 {{ l.date }}
-    <button (click)="l.id && deleteLot(l.id)">Supprimer</button>
-  </li>
-</ul>
+<div class="scrollable">
+  <ul>
+    <li *ngFor="let l of lots" class="item">
+      📦 <strong>{{ l.nombre }}</strong> badges |
+      📅 <strong>{{ l.date }}</strong>
+      <a [routerLink]="['/lots/edit', l.id]" class="edit">Modifier</a>
+      <button (click)="l.id && deleteLot(l.id)">Supprimer</button>
+    </li>
+  </ul>
+</div>

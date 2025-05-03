@@ -1,0 +1,44 @@
+/* compact-form و scrollable كما كان */
+.compact-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 1rem;
+}
+.compact-form select,
+.compact-form input {
+  padding: 4px 8px;
+  font-size: 0.9rem;
+}
+.compact-form button {
+  padding: 4px 12px;
+}
+
+.scrollable {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 0;
+  border-bottom: 1px solid #ddd;
+}
+.item button {
+  margin-left: auto;
+  padding: 2px 6px;
+  background: #e74c3c;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.item button:hover {
+  background: #c0392b;
+}

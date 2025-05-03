@@ -1,23 +1,21 @@
-<h2>Ajouter un Employé</h2>
-<form (ngSubmit)="addEmploye()">
-  <label>Nom d'utilisateur:</label>
-  <input [(ngModel)]="newEmploye.username" name="username" required>
-
-  <label>Email:</label>
-  <input [(ngModel)]="newEmploye.email" name="email" required>
-
-  <label>Mot de passe:</label>
-  <input [(ngModel)]="newEmploye.password" name="password" required>
-
+<h2>Ajouter un employé</h2>
+<form (ngSubmit)="add()" class="compact-form">
+  <input placeholder="Username"  [(ngModel)]="newEmploye.username" name="username" required>
+  <input placeholder="Email"     [(ngModel)]="newEmploye.email"    name="email"    type="email" required>
+  <input placeholder="Password"  [(ngModel)]="newEmploye.password" name="password" type="text" required>
   <button type="submit">Ajouter</button>
 </form>
 
 <hr>
 
-<h2>Liste des Employés</h2>
-<ul>
-  <li *ngFor="let emp of employes">
-    👤 {{ emp.username }} | ✉️ {{ emp.email }}
-    <button (click)="emp.id && deleteEmploye(emp.id)">Supprimer</button>
-  </li>
-</ul>
+<h2>Liste des employés</h2>
+<div class="scrollable">
+  <ul>
+    <li *ngFor="let e of employes" class="item">
+      👤 {{ e.username }} | ✉️ {{ e.email }}  | 🔐 {{ e.password }}
+      <span class="badge-count">🏷️ {{ e.badges?.length || 0 }}</span>
+      <a [routerLink]="['/employes/edit', e.id]">Modifier</a>
+      <button (click)="delete(e.id!)">Supprimer</button>
+    </li>
+  </ul>
+</div>

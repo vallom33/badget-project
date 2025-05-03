@@ -1,20 +1,38 @@
-<h2>Ajouter une Autorité</h2>
-<form (ngSubmit)="addAuthorite()">
-  <label>Nom d'utilisateur:</label>
-  <input [(ngModel)]="newAuthorite.username" name="username" required>
+<!-- src/app/pages/authority-list.component.html -->
 
-  <label>Rôle:</label>
-  <input [(ngModel)]="newAuthorite.role" name="role" required>
+<h2>الصلاحيات</h2>
 
-  <button type="submit">Ajouter</button>
+<form (ngSubmit)="addAuthority()" #authForm="ngForm" class="compact-form">
+  <!-- اختيار المستخدم -->
+  <select
+    [(ngModel)]="newAuth.username"
+    name="username"
+    required
+    >
+    <option value="" disabled selected>— choose a user —</option>
+    <option *ngFor="let u of users" [value]="u.username">
+      {{ u.username }}
+    </option>
+  </select>
+
+  <!-- حقل الدور -->
+  <input
+    [(ngModel)]="newAuth.role"
+    name="role"
+    placeholder="Role"
+    required
+  />
+
+  <button type="submit" [disabled]="authForm.invalid">Add</button>
 </form>
 
-<hr>
+<hr />
 
-<h2>Liste des Autorités</h2>
-<ul>
-  <li *ngFor="let a of authorites">
-    👤 {{ a.username }} | 🔐 {{ a.role }}
-    <button (click)="a.id && deleteAuthorite(a.id)">Supprimer</button>
-  </li>
-</ul>
+<div class="scrollable">
+  <ul>
+    <li *ngFor="let a of authorites" class="item">
+      👤 {{ a.username }} | 🔐 {{ a.role }}
+      <button (click)="deleteAuthority(a.id!)">Delete</button>
+    </li>
+  </ul>
+</div>

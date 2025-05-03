@@ -8,6 +8,7 @@ export interface Employe {
   username: string;
   email: string;
   password: string;
+  badges?: any[];        // ← add this line
 }
 
 @Injectable({
