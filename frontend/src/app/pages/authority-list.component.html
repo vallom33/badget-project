@@ -1,27 +1,12 @@
-<!-- src/app/pages/authority-list.component.html -->
-
-<h2>الصلاحيات</h2>
+<h2>Authorities</h2>
 
 <form (ngSubmit)="addAuthority()" #authForm="ngForm" class="compact-form">
-  <!-- اختيار المستخدم -->
-  <select
-    [(ngModel)]="newAuth.username"
-    name="username"
-    required
-    >
+  <select [(ngModel)]="newAuth.username" name="username" required>
     <option value="" disabled selected>— choose a user —</option>
-    <option *ngFor="let u of users" [value]="u.username">
-      {{ u.username }}
-    </option>
+    <option *ngFor="let u of users" [value]="u.username">{{ u.username }}</option>
   </select>
 
-  <!-- حقل الدور -->
-  <input
-    [(ngModel)]="newAuth.role"
-    name="role"
-    placeholder="Role"
-    required
-  />
+  <input [(ngModel)]="newAuth.role" name="role" placeholder="Role" required />
 
   <button type="submit" [disabled]="authForm.invalid">Add</button>
 </form>
@@ -31,8 +16,20 @@
 <div class="scrollable">
   <ul>
     <li *ngFor="let a of authorites" class="item">
-      👤 {{ a.username }} | 🔐 {{ a.role }}
-      <button (click)="deleteAuthority(a.id!)">Delete</button>
+      <ng-container *ngIf="editingId !== a.id">
+        👤 {{ a.username }} | 🔐 {{ a.role }}
+        <button (click)="startEdit(a.id!)">Edit</button>
+        <button (click)="deleteAuthority(a.id!)">Delete</button>
+      </ng-container>
+
+      <ng-container *ngIf="editingId === a.id">
+        <select [(ngModel)]="editCache[a.id!].username">
+          <option *ngFor="let u of users" [value]="u.username">{{ u.username }}</option>
+        </select>
+        <input [(ngModel)]="editCache[a.id!].role" />
+        <button (click)="saveEdit(a.id!)">Save</button>
+        <button (click)="cancelEdit()">Cancel</button>
+      </ng-container>
     </li>
   </ul>
 </div>

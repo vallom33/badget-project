@@ -33,7 +33,7 @@ import { LotEditComponent } from './pages/lot-edit.component';
 
 // Badge Status
 import { BadgeStatusListComponent } from './pages/badgestatus-list.component';
-import { BadgestatusEditComponent } from './pages/badgestatus-edit.component';
+import { BadgeStatusEditComponent } from './pages/badgestatus-edit.component';
 
 export const routes: Routes = [
 
@@ -70,7 +70,7 @@ export const routes: Routes = [
 
   // Badge Status
   { path: 'badgestatus', component: BadgeStatusListComponent, canActivate: [AuthGuard] },
-  { path: 'badgestatus/edit/:id', component: BadgestatusEditComponent },
+  { path: 'badgestatus/edit/:id', component: BadgeStatusEditComponent },
 
   // Default and fallback
   { path: '', redirectTo: '/login', pathMatch: 'full' },

@@ -1,4 +1,3 @@
-// src/app/badge-status/badge-status-list.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -9,11 +8,13 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   selector: 'app-badge-status-list',
   templateUrl: './badgestatus-list.component.html',
+  styleUrls: ['./badgestatus-list.component.css'],
   imports: [CommonModule, FormsModule, RouterModule],
 })
 export class BadgeStatusListComponent implements OnInit {
   statuses: BadgeStatus[] = [];
   newStatus: BadgeStatus = { status: '' };
+  editingStatus: BadgeStatus | null = null;
 
   constructor(private badgeStatusService: BadgeStatusService) {}
 
@@ -28,10 +29,28 @@ export class BadgeStatusListComponent implements OnInit {
   }
 
   addStatus(): void {
+    if (!this.newStatus.status.trim()) return;
     this.badgeStatusService.createBadgeStatus(this.newStatus).subscribe((s) => {
       this.statuses.push(s);
       this.newStatus = { status: '' };
     });
+  }
+
+  editStatus(status: BadgeStatus): void {
+    this.editingStatus = { ...status };
+  }
+
+  saveStatus(): void {
+    if (!this.editingStatus) return;
+    this.badgeStatusService.updateBadgeStatus(this.editingStatus).subscribe((updated) => {
+      const index = this.statuses.findIndex(s => s.id === updated.id);
+      if (index > -1) this.statuses[index] = updated;
+      this.editingStatus = null;
+    });
+  }
+
+  cancelEdit(): void {
+    this.editingStatus = null;
   }
 
   deleteStatus(id: number): void {

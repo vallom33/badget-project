@@ -1,20 +1,43 @@
-<h2>Ajouter une Permission</h2>
-<form (ngSubmit)="addPermission()">
-  <label>Nom de la permission:</label>
-  <input [(ngModel)]="newPermission.username" name="username" required>
+<div class="form-container">
+  <h3>➕ Add Permission</h3>
+  <form (ngSubmit)="addPermission()">
+    <label>
+      👤 Name:
+      <input [(ngModel)]="newPermission.username" name="username" required />
+    </label>
+    <label>
+      📝 Description:
+      <input [(ngModel)]="newPermission.description" name="description" required />
+    </label>
+    <label>
+      👥 User:
+      <select [(ngModel)]="selectedUserId" name="userId" required>
+        <option [ngValue]="null" disabled selected>Select User</option>
+        <option *ngFor="let user of users" [value]="user.id">{{ user.username }}</option>
+      </select>
+    </label>
 
-  <label>Description:</label>
-  <input [(ngModel)]="newPermission.description" name="description" required>
+    <button type="submit">✅ Add Permission</button>
+  </form>
+</div>
 
-  <button type="submit">Ajouter</button>
-</form>
+<hr />
 
-<hr>
-
-<h2>Liste des Permissions</h2>
-<ul>
-  <li *ngFor="let p of permissions">
-    🔐 {{ p.username }} | 📄 {{ p.description }}
-    <button (click)="p.id && deletePermission(p.id)">Supprimer</button>
-  </li>
-</ul>
+<div class="list-container">
+  <h3>🔐 Permissions List</h3>
+  <ul>
+    <li *ngFor="let p of permissions">
+      <div class="permission-info">
+        👤 <strong>{{ p.username }}</strong> <br />
+        📝 <em>{{ p.description }}</em> <br />
+        👥 Assigned To: 
+        <span *ngIf="p.user">{{ p.user.username }}</span>
+        <span *ngIf="!p.user">-</span>
+      </div>
+      <div class="actions">
+        <a [routerLink]="['/permissions/edit', p.id]">✏️ Edit</a>
+        <button (click)="p.id && deletePermission(p.id)">❌ Delete</button>
+      </div>
+    </li>
+  </ul>
+</div>

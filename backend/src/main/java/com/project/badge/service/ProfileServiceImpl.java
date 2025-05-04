@@ -1,8 +1,9 @@
-// ProfileServiceImpl.java (implementation)
+// src/main/java/com/project/badge/service/ProfileServiceImpl.java
 package com.project.badge.service;
 
 import com.project.badge.model.Profile;
 import com.project.badge.repository.ProfileRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,30 +12,38 @@ import java.util.Optional;
 @Service
 public class ProfileServiceImpl implements ProfileService {
 
-    private final ProfileRepository profileRepository;
-
-    // Constructor injection (better than @Autowired on field)
-    public ProfileServiceImpl(ProfileRepository profileRepository) {
-        this.profileRepository = profileRepository;
-    }
+    @Autowired
+    private ProfileRepository repo;
 
     @Override
-    public List<Profile> getAllProfile() {
-        return profileRepository.findAll();
+    public List<Profile> getAllProfiles() {
+        return repo.findAll();
     }
 
     @Override
     public Optional<Profile> getProfileById(Long id) {
-        return profileRepository.findById(id);
+        return repo.findById(id);
     }
 
     @Override
     public Profile createProfile(Profile profile) {
-        return profileRepository.save(profile);
+        return repo.save(profile);
+    }
+
+    @Override
+    public Profile updateProfile(Long id, Profile profile) {
+        return repo.findById(id).map(existing -> {
+            existing.setLibelle(profile.getLibelle());
+            existing.setNni(profile.getNni());
+            existing.setPhone(profile.getPhone());
+            existing.setPhotoUrl(profile.getPhotoUrl());
+            existing.setUser(profile.getUser());
+            return repo.save(existing);
+        }).orElseThrow(() -> new RuntimeException("Profile not found"));
     }
 
     @Override
     public void deleteProfile(Long id) {
-        profileRepository.deleteById(id);
+        repo.deleteById(id);
     }
 }

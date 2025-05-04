@@ -1,16 +1,26 @@
-<h2>Ajouter un Statut de Badge</h2>
-<form (ngSubmit)="addStatus()">
-  <label>Statut:</label>
-  <input [(ngModel)]="newStatus.status" name="status" required>
-  <button type="submit">Ajouter</button>
-</form>
+<div class="status-form">
+  <h3>➕ Ajouter un Statut de Badge</h3>
+  <form (ngSubmit)="addStatus()" class="form-inline">
+    <input [(ngModel)]="newStatus.status" name="status" required placeholder="Statut...">
+    <button type="submit">Ajouter</button>
+  </form>
+</div>
 
 <hr>
 
-<h2>Liste des Statuts</h2>
-<ul>
+<h3>📋 Liste des Statuts</h3>
+<ul class="status-list">
   <li *ngFor="let s of statuses">
-    📛 {{ s.status }}
-    <button (click)="s.id && deleteStatus(s.id)">Supprimer</button>
+    <div *ngIf="editingStatus?.id !== s.id">
+      📛 <strong>     {{ s.status }}      </strong>
+      <button (click)="editStatus(s)" >   ✏️ Modifier</button>
+      <button (click)="s.id && deleteStatus(s.id)" >   🗑️ Supprimer</button>
+    </div>
+
+    <div *ngIf="editingStatus?.id === s.id">
+      <input [(ngModel)]="editingStatus!.status" name="editStatus" required>
+      <button (click)="saveStatus()">  💾 Enregistrer</button>
+      <button (click)="cancelEdit()">  ❌ Annuler</button>
+    </div>
   </li>
 </ul>

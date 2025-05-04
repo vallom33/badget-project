@@ -1,0 +1,17 @@
+.form-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+    gap: 8px;
+  }
+  
+  input {
+    padding: 6px;
+    font-size: 13px;
+  }
+  
+  button {
+    padding: 6px;
+    font-size: 13px;
+  }
+  

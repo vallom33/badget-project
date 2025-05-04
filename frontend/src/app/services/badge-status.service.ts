@@ -27,4 +27,13 @@ export class BadgeStatusService {
   deleteBadgeStatus(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+
+  updateBadgeStatus(badgeStatus: BadgeStatus): Observable<BadgeStatus> {
+    return this.http.put<BadgeStatus>(`${this.apiUrl}/${badgeStatus.id}`, badgeStatus);
+  }
+  
+
+
+
 }
+

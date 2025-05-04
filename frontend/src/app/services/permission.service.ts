@@ -3,10 +3,17 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+export interface User {
+  id: number;
+  username: string;
+}
+
 export interface Permission {
   id?: number;
   username: string;
   description: string;
+  user?: User;
+  userId?: number;
 }
 
 @Injectable({
@@ -21,6 +28,10 @@ export class PermissionService {
     return this.http.get<Permission[]>(this.apiUrl);
   }
 
+  getPermissionById(id: number): Observable<Permission> {
+    return this.http.get<Permission>(`${this.apiUrl}/${id}`);
+  }
+
   createPermission(permission: Permission): Observable<Permission> {
     return this.http.post<Permission>(this.apiUrl, permission);
   }
@@ -28,4 +39,8 @@ export class PermissionService {
   deletePermission(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+
+  
+
+
 }

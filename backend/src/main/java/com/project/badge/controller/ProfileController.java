@@ -1,38 +1,44 @@
+// src/main/java/com/project/badge/controller/ProfileController.java
 package com.project.badge.controller;
+
 import com.project.badge.model.Profile;
-import com.project.badge.service.ProfileServiceImpl;
+import com.project.badge.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
-
 @RestController
 @RequestMapping("/profiles")
+@CrossOrigin(origins = "http://localhost:4200")
 public class ProfileController {
 
     @Autowired
-    private ProfileServiceImpl profileService;
+    private ProfileService service;
 
     @GetMapping
-    public List<Profile> getAllProfile(){
-        return profileService.getAllProfile();
+    public List<Profile> listAll() {
+        return service.getAllProfiles();
     }
 
     @GetMapping("/{id}")
-    public Optional<Profile> getProfileById(@PathVariable Long id){
-        return profileService.getProfileById( id);
+    public Optional<Profile> getOne(@PathVariable Long id) {
+        return service.getProfileById(id);
     }
 
     @PostMapping
-    public Profile createprofile(@RequestBody Profile profile){
-        return profileService.createProfile(profile);
+    public Profile create(@RequestBody Profile p) {
+        return service.createProfile(p);
     }
 
-    @PostMapping("/{id}")
-    public void deleteprofile(@PathVariable Long id){
-        profileService.deleteProfile(id);
+    @PutMapping("/{id}")
+    public Profile update(@PathVariable Long id, @RequestBody Profile p) {
+        return service.updateProfile(id, p);
     }
 
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        service.deleteProfile(id);
+    }
 }

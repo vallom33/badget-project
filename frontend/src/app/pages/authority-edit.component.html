@@ -1,0 +1,26 @@
+<!-- src/app/pages/authority-edit.component.html -->
+
+<h2>Edit Authority</h2>
+
+<!-- التأكد من تحميل البيانات قبل عرض النموذج -->
+<form *ngIf="isLoaded" (ngSubmit)="update()" class="compact-form">
+  <input
+    type="text"
+    [(ngModel)]="auth.username"
+    name="username"
+    placeholder="Username"
+    required
+  />
+  <select [(ngModel)]="auth.role" name="role" required>
+    <option value="">Select Role</option>
+    <option value="ADMIN">ADMIN</option>
+    <option value="USER">USER</option>
+  </select>
+  <button type="submit">Update</button>
+  <button type="button" (click)="cancel()">Cancel</button>
+</form>
+
+<!-- عرض رسالة عند عدم تحميل البيانات -->
+<div *ngIf="!isLoaded">
+  <p>Loading...</p>
+</div>

@@ -1,1 +1,7 @@
-<p>badgestatus-edit works!</p>
+<h3>Modifier un Statut de Badge</h3>
+<form (ngSubmit)="saveBadgeStatus()">
+  <label for="status">Statut:</label>
+  <input [(ngModel)]="badgeStatus.status" name="status" required placeholder="Statut...">
+  <button type="submit" [disabled]="isLoading">Enregistrer</button>
+  <button type="button" (click)="cancelEdit()">Annuler</button>
+</form>

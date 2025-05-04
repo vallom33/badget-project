@@ -1,0 +1,43 @@
+.status-form {
+    background: #222;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+  }
+  
+  .status-form input {
+    padding: 6px;
+    margin-right: 8px;
+    border-radius: 4px;
+    border: none;
+  }
+  
+  .status-form button {
+    padding: 6px 10px;
+    border-radius: 4px;
+    background: #4caf50;
+    color: white;
+    border: none;
+  }
+  
+  .status-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .status-list li {
+    background: #333;
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 6px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .status-list input {
+    padding: 4px;
+    margin-right: 6px;
+  }
+  
