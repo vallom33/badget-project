@@ -14,13 +14,11 @@ export class BadgeAddComponent {
   badge: Badge = {
     username: '',
     prenom: '',
-    status: '',
     badgeType: '',
     issueDate: '',
     expiryDate: '',
     photoUrl: '',
-    // ▪️ أضفنا badgeStatus الافتراضي
-    badgeStatus: { id: 1 }
+    status_id: 1 // افتراضيًا Active
   };
 
   constructor(private badgeService: BadgeService, private router: Router) {}

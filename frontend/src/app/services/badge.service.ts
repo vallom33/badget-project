@@ -6,18 +6,16 @@ export interface Badge {
   id?: number;
   username: string;
   prenom: string;
-  status: string;
+  status?: string;        // يمكنك إبقاؤه للعرض في الواجهة فقط
   badgeType?: string;
   issueDate?: string;
   expiryDate?: string;
   photoUrl?: string;
-
-  // ▪️ أضفنا badgeStatus ليكون مطلوباً
-  badgeStatus: {
-    id: number;
-  };
+  status_id: number;      // ← الحقل الوحيد للمفتاح الأجنبي
   employe?: any;
   lot?: any;
+  badgeStatus?: any; // ← نستخدمه بدل `status` لاحقًا
+
 }
 
 @Injectable({
@@ -37,13 +35,21 @@ export class BadgeService {
   }
 
   createBadge(badge: Badge): Observable<Badge> {
-    const { id, ...data } = badge;
-    return this.http.post<Badge>(this.apiUrl, data);
+    const payload = {
+      ...badge,
+      badgeStatus: { id: badge.status_id } // ← نحول id إلى كائن
+    };
+    return this.http.post<Badge>(this.apiUrl, payload);
   }
-
+  
   updateBadge(badge: Badge): Observable<Badge> {
-    return this.http.put<Badge>(`${this.apiUrl}/${badge.id}`, badge);
+    const payload = {
+      ...badge,
+      badgeStatus: { id: badge.status_id }
+    };
+    return this.http.put<Badge>(`${this.apiUrl}/${badge.id}`, payload);
   }
+  
 
   deleteBadge(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);

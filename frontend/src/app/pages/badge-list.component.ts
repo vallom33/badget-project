@@ -13,15 +13,15 @@ import { RouterModule } from '@angular/router';
 })
 export class BadgeListComponent implements OnInit {
   badges: Badge[] = [];
+
   newBadge: Badge = {
     username: '',
     prenom: '',
-    status: '',
     badgeType: '',
     issueDate: '',
     expiryDate: '',
     photoUrl: '',
-    badgeStatus: { id: 1 },
+    status_id: 1, // افتراضيًا Active
   };
 
   constructor(private badgeService: BadgeService) {}
@@ -44,12 +44,11 @@ export class BadgeListComponent implements OnInit {
         this.newBadge = {
           username: '',
           prenom: '',
-          status: '',
           badgeType: '',
           issueDate: '',
           expiryDate: '',
           photoUrl: '',
-          badgeStatus: { id: 1 },
+          status_id: 1,
         };
       },
       error: err => console.error(err)

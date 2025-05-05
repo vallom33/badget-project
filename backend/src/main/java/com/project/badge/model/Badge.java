@@ -35,6 +35,7 @@ public class Badge {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private BadgeStatus badgeStatus;
 
+
     // ✅ الحقول الجديدة التي طلبتها
     @Column(name = "badge_type")
     private String badgeType;

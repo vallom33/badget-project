@@ -21,12 +21,16 @@ export class BadgeEditComponent implements OnInit {
 
   ngOnInit(): void {
     const id = +this.route.snapshot.params['id'];
-    this.badgeService.getBadgeById(id).subscribe(data => this.badge = data);
+    this.badgeService.getBadgeById(id).subscribe({
+      next: data => this.badge = data,
+      error: err => console.error(err)
+    });
   }
 
   updateBadge() {
-    this.badgeService.updateBadge(this.badge).subscribe(() => {
-      this.router.navigate(['/badges']);
+    this.badgeService.updateBadge(this.badge).subscribe({
+      next: () => this.router.navigate(['/badges']),
+      error: err => console.error(err)
     });
   }
 }

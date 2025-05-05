@@ -2,12 +2,12 @@
 <form (ngSubmit)="addBadge()" class="compact-form">
   <input placeholder="Username" [(ngModel)]="newBadge.username" name="username" required>
   <input placeholder="First Name" [(ngModel)]="newBadge.prenom" name="prenom" required>
-  
-  <select [(ngModel)]="newBadge.badgeStatus.id" name="badgeStatus" required>
-    <option [ngValue]="1">Active</option>
-    <option [ngValue]="2">Expired</option>
+
+  <select [(ngModel)]="newBadge.status_id" name="status_id" required>
+    <option [value]="1">Active</option>
+    <option [value]="2">Expired</option>
   </select>
-  
+
   <input placeholder="Badge Type" [(ngModel)]="newBadge.badgeType" name="badgeType">
   <input type="date" placeholder="Issue Date" [(ngModel)]="newBadge.issueDate" name="issueDate">
   <input type="date" placeholder="Expiry Date" [(ngModel)]="newBadge.expiryDate" name="expiryDate">
@@ -24,7 +24,7 @@
     <li *ngFor="let b of badges" class="item">
       <img *ngIf="b.photoUrl" [src]="b.photoUrl" alt="photo" class="thumb">
       👤 {{ b.prenom }} ({{ b.username }}) |
-      📌 {{ b.badgeStatus.id === 1 ? 'Active' : 'Expired' }} |
+      📌 {{ b.badgeStatus?.status }} |
       <a [routerLink]="['/badges/edit', b.id]">Modifier</a> |
       <button (click)="deleteBadge(b.id!)">Supprimer</button>
     </li>

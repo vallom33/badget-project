@@ -8,7 +8,10 @@
   <input type="text" [(ngModel)]="badge.prenom" name="prenom" required />
 
   <label>Status:</label>
-  <input type="text" [(ngModel)]="badge.status" name="status" required />
+  <select [(ngModel)]="badge.status_id" name="status_id" required>
+    <option [value]="1">Active</option>
+    <option [value]="2">Expired</option>
+  </select>
 
   <label>Badge Type:</label>
   <input type="text" [(ngModel)]="badge.badgeType" name="badgeType" />
@@ -21,13 +24,6 @@
 
   <label>Photo URL:</label>
   <input type="text" [(ngModel)]="badge.photoUrl" name="photoUrl" />
-
-  <label>Badge Status:</label>
-  <select [(ngModel)]="badge.badgeStatus.id" name="badgeStatus" required>
-    <option [ngValue]="1">Active</option>
-    <option [ngValue]="2">Expired</option>
-    <!-- أضف حسب بياناتك جدول badge_status -->
-  </select>
 
   <button type="submit">Save</button>
 </form>
