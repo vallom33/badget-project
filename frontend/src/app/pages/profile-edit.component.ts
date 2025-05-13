@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 
-import { ProfileService, Profile } from '../services/profile.service';
+import { ProfileService } from '../services/profile.service';
+import { Profile } from '../models/profile.model';
 import { UserService, User } from '../services/user.service';
 
 @Component({
@@ -19,21 +20,36 @@ export class ProfileEditComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    public router: Router,
+    private router: Router,
     private profileService: ProfileService,
     private userService: UserService
   ) {}
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.userService.getUsers().subscribe(u => (this.users = u));
-    this.profileService.getProfileById(id).subscribe(p => (this.profile = p));
+    // جلب قائمة المستخدمين
+    this.userService.getUsers().subscribe(
+      (u) => (this.users = u),
+      (err) => console.error('Error loading users', err)
+    );
+    // جلب البروفايل الحالي
+    this.profileService.getProfileById(id).subscribe(
+      (p) => {
+        // تأكد أنّ الـ user موجودة كـ { id, ... }
+        this.profile = {
+          ...p,
+          user: { id: p.user.id, username: p.user.username, email: p.user.email, password: p.user.password }
+        };
+      },
+      (err) => console.error('Error loading profile', err)
+    );
   }
 
   updateProfile(): void {
-    this.profileService.updateProfile(this.profile).subscribe(() => {
-      this.router.navigate(['/profile']);
-    });
+    this.profileService.updateProfile(this.profile).subscribe(
+      () => this.router.navigate(['/profile']),
+      (err) => console.error('Error updating profile', err)
+    );
   }
 
   cancel(): void {

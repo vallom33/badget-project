@@ -1,26 +1,45 @@
-<!-- Form لإضافة مستخدم جديد -->
 <h2>Ajouter un utilisateur</h2>
-<form (ngSubmit)="addUser()">
-  <label>Email:</label>
-  <input [(ngModel)]="newUser.email" name="newEmail" required>
-
-  <label>Nom d'utilisateur:</label>
-  <input [(ngModel)]="newUser.username" name="newUsername" required>
-
-  <label>Mot de passe:</label>
-  <input [(ngModel)]="newUser.password" name="newPassword" required>
-
+<form (ngSubmit)="addUser()" class="compact-form">
+  <input
+    type="email"
+    name="email"
+    [(ngModel)]="newUser.email"
+    placeholder="Email"
+    required
+  />
+  <input
+    type="text"
+    name="username"
+    [(ngModel)]="newUser.username"
+    placeholder="Nom d’utilisateur"
+    required
+  />
+  <input
+    type="password"
+    name="password"
+    [(ngModel)]="newUser.password"
+    placeholder="Mot de passe"
+    required
+  />
   <button type="submit">Ajouter</button>
 </form>
 
-<hr>
+<hr />
 
-<!-- قائمة المستخدمين -->
 <h2>Liste des utilisateurs</h2>
-<ul>
-  <li *ngFor="let user of users">
-    📧 {{ user.email }} | 👤 {{ user.username }} | 🔐 {{ user.password }}
-    <a [routerLink]="['/user/edit', user.id]">Modifier</a> |
-    <button (click)="user.id && deleteUser(user.id)">Supprimer</button>
-  </li>
-</ul>
+<div class="scrollable">
+  <ul>
+    <li *ngFor="let user of users" class="item">
+      📧 {{ user.email }} |
+      👤 {{ user.username }}
+      <a [routerLink]="['/user/edit', user.id]">Modifier</a>
+      <button (click)="deleteUser(user.id!)">Supprimer</button>
+    </li>
+  </ul>
+</div>
+
+<div class="paginator">
+  <button (click)="prev()" [disabled]="currentPage === 0">Précédent</button>
+  <span>Page {{ currentPage + 1 }} / {{ totalPages }}</span>
+  <button (click)="next()" [disabled]="currentPage + 1 >= totalPages">Suivant</button>
+</div>

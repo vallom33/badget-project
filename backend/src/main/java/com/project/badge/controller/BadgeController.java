@@ -4,13 +4,12 @@ import com.project.badge.model.Badge;
 import com.project.badge.service.BadgeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @RestController
-@RequestMapping("/badges") // مسار أفضل واحترافي أكثر
-@CrossOrigin(origins = "*") // مهم لو تعمل مع Angular
+@RequestMapping("/badges")
+@CrossOrigin(origins = "http://localhost:4200")
 public class BadgeController {
 
     private final BadgeService badgeService;
@@ -21,13 +20,14 @@ public class BadgeController {
     }
 
     @GetMapping
-    public List<Badge> getAllBadges() {
-        return badgeService.getAllBadges();
+    public Page<Badge> getAllBadges(Pageable pageable) {
+        return badgeService.getAllBadges(pageable);
     }
 
     @GetMapping("/{id}")
-    public Optional<Badge> getBadgeById(@PathVariable Long id) {
-        return badgeService.getBadgeById(id);
+    public Badge getBadgeById(@PathVariable Long id) {
+        return badgeService.getBadgeById(id)
+                .orElseThrow(() -> new RuntimeException("Badge not found with id: " + id));
     }
 
     @PostMapping

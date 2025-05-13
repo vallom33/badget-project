@@ -1,57 +1,126 @@
-/* очень компактная форма */
+:host {
+  display: block;
+  padding: 1rem;
+  background-color: #121212;
+  color: #f0f0f0;
+  font-family: Arial, sans-serif;
+}
+
 .compact-form {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
-    margin-bottom: 0.5rem;
-  }
-  .compact-form input {
-    padding: 4px;
-    font-size: 0.9rem;
-  }
-  .compact-form button {
-    padding: 4px 8px;
-    font-size: 0.9rem;
-  }
-  
-  /* список с прокруткой */
-  .scrollable {
-    max-height: 60vh;
-    overflow-y: auto;
-    margin-top: 0.5rem;
-  }
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  .item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 4px 0;
-    border-bottom: 1px solid #eee;
-  }
-  .thumb {
-    width: 32px;
-    height: 32px;
-    object-fit: cover;
-    border-radius: 4px;
-  }
-  .item button {
-    padding: 2px 6px;
-    background: #e74c3c;
-    color: #fff;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-  }
-  .item button:hover {
-    background: #c0392b;
-  }
-  .item a {
-    color: #3498db;
-    text-decoration: none;
-    font-size: 0.9rem;
-  }
-  
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 1rem;
+  background-color: #1e1e1e;
+  padding: 0.75rem;
+  border-radius: 6px;
+}
+
+.compact-form select,
+.compact-form input {
+  padding: 4px 8px;
+  font-size: 0.85rem;
+  border: 1px solid #555;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #000;
+  flex: 1 1 140px;
+}
+
+.compact-form button {
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  background-color: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.compact-form button:hover {
+  background-color: #1565c0;
+}
+
+.scrollable {
+  max-height: 60vh;
+  overflow-y: auto;
+  margin-top: 0.5rem;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  border-bottom: 1px solid #333;
+}
+
+.thumb {
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.item a {
+  margin-left: auto;
+  color: #4da6ff;
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.item button {
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.item button:hover {
+  background-color: #c0392b;
+}
+
+/* Paginator */
+.paginator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.paginator button {
+  padding: 4px 8px;
+  font-size: 0.85rem;
+  background-color: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.paginator button:hover:not(:disabled) {
+  background-color: #1565c0;
+  transform: translateY(-1px);
+}
+
+.paginator button:disabled {
+  background-color: #444;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.paginator span {
+  font-size: 0.85rem;
+  color: #ccc;
+}

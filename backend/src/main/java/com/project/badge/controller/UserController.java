@@ -3,9 +3,10 @@ package com.project.badge.controller;
 import com.project.badge.model.User;
 import com.project.badge.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -16,9 +17,10 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    // OLD: public List<User> getAllUsers()
     @GetMapping
-    public List<User> getAllUsers() {
-        return userService.getAllUsers();
+    public Page<User> getAllUsers(Pageable pageable) {
+        return userService.getAllUsers(pageable);
     }
 
     @GetMapping("/{id}")

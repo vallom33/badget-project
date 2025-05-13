@@ -12,10 +12,16 @@
 <div class="scrollable">
   <ul>
     <li *ngFor="let e of employes" class="item">
-      👤 {{ e.username }} | ✉️ {{ e.email }}  | 🔐 {{ e.password }}
+      👤 {{ e.username }} | ✉️ {{ e.email }} | 🔐 {{ e.password }}
       <span class="badge-count">🏷️ {{ e.badges?.length || 0 }}</span>
       <a [routerLink]="['/employes/edit', e.id]">Modifier</a>
       <button (click)="delete(e.id!)">Supprimer</button>
     </li>
   </ul>
+</div>
+
+<div class="paginator">
+  <button (click)="prev()" [disabled]="currentPage === 0">Previous</button>
+  <span>Page {{ currentPage + 1 }} / {{ totalPages }}</span>
+  <button (click)="next()" [disabled]="currentPage + 1 >= totalPages">Next</button>
 </div>

@@ -1,12 +1,12 @@
-// src/main/java/com/project/badge/controller/ProfileController.java
 package com.project.badge.controller;
 
 import com.project.badge.model.Profile;
 import com.project.badge.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -17,9 +17,10 @@ public class ProfileController {
     @Autowired
     private ProfileService service;
 
+    // ✅ دعم pagination مباشرة من /profiles
     @GetMapping
-    public List<Profile> listAll() {
-        return service.getAllProfiles();
+    public Page<Profile> getProfiles(Pageable pageable) {
+        return service.getProfiles(pageable);
     }
 
     @GetMapping("/{id}")

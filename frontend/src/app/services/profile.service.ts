@@ -1,16 +1,10 @@
-// src/app/services/profile.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-export interface Profile {
-  id?: number;
-  libelle: string;
-  nni: string;
-  phone?: string;
-  photoUrl?: string;
-  user?: { id: number };
-}
+// استورد التعريفات من models، لا تُعيد تعريف Profile هنا
+import { Profile } from '../models/profile.model';
+import { Page } from '../models/page';
 
 @Injectable({ providedIn: 'root' })
 export class ProfileService {
@@ -18,8 +12,14 @@ export class ProfileService {
 
   constructor(private http: HttpClient) {}
 
+  // للحصول على قائمة كاملة (غير مستخدمة الآن)
   getProfiles(): Observable<Profile[]> {
     return this.http.get<Profile[]>(this.apiUrl);
+  }
+
+  // الدالة الجديدة للـ pagination
+  getProfilesPaginated(page: number, size: number): Observable<Page<Profile>> {
+    return this.http.get<Page<Profile>>(`${this.apiUrl}?page=${page}&size=${size}`);
   }
 
   getProfileById(id: number): Observable<Profile> {

@@ -2,6 +2,7 @@
 package com.project.badge.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -21,9 +22,10 @@ public class User {
     private String password;
 
     // On ignore le profile pour éviter la récursion
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonIgnore
+    @OneToOne(mappedBy = "user")
+    @JsonIgnoreProperties("user")  // break the loop from the other side
     private Profile profile;
+
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name="user_authority",

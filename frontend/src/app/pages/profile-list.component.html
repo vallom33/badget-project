@@ -6,32 +6,14 @@
       {{ u.username }}
     </option>
   </select>
-  <input
-    placeholder="Libelle"
-    [(ngModel)]="newProfile.libelle"
-    name="libelle"
-    required
-  />
-  <input
-    placeholder="NNI"
-    [(ngModel)]="newProfile.nni"
-    name="nni"
-    required
-  />
-  <input
-    placeholder="Phone"
-    [(ngModel)]="newProfile.phone"
-    name="phone"
-  />
-  <input
-    placeholder="Photo URL"
-    [(ngModel)]="newProfile.photoUrl"
-    name="photoUrl"
-  />
+  <input placeholder="Libelle" [(ngModel)]="newProfile.libelle" name="libelle" required />
+  <input placeholder="NNI" [(ngModel)]="newProfile.nni" name="nni" required />
+  <input placeholder="Phone" [(ngModel)]="newProfile.phone" name="phone" />
+  <input placeholder="Photo URL" [(ngModel)]="newProfile.photoUrl" name="photoUrl" />
   <button type="submit">Add</button>
 </form>
 
-<hr>
+<hr />
 
 <h2>Profile List</h2>
 <div class="scrollable">
@@ -46,4 +28,10 @@
       <button (click)="deleteProfile(p.id!)">Delete</button>
     </li>
   </ul>
+</div>
+
+<div class="paginator" style="margin-top: 1rem;">
+  <button (click)="prev()" [disabled]="currentPage === 0">Previous</button>
+  <span>Page {{ currentPage + 1 }} / {{ totalPages }}</span>
+  <button (click)="next()" [disabled]="currentPage + 1 >= totalPages">Next</button>
 </div>

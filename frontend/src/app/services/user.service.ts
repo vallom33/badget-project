@@ -1,25 +1,37 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+// src/app/services/user.service.ts
 
-export interface User {
-  id?: number;
-  username: string;
-  email: string;
-  password: string;
-}
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { User } from '../models/user.model';
+import { Page } from '../models/page';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-
   private apiUrl = 'http://localhost:8080/users';
 
   constructor(private http: HttpClient) {}
 
+  /** Paged fetch (legacy) */
+  getUsersPaginated(page: number, size: number): Observable<Page<User>> {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString());
+    return this.http.get<Page<User>>(this.apiUrl, { params });
+  }
+
+  /** Fetch all users, unwrapping the Page<User>.content */
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.apiUrl);
+    const params = new HttpParams()
+      .set('page', '0')
+      .set('size', '1000');
+    return this.http
+      .get<Page<User>>(this.apiUrl, { params })
+      .pipe(map(page => page.content));
   }
 
   getUserById(id: number): Observable<User> {
@@ -27,8 +39,8 @@ export class UserService {
   }
 
   addUser(user: User): Observable<User> {
-    const { id, ...userData } = user;
-    return this.http.post<User>(this.apiUrl, userData);
+    const { id, ...payload } = user;
+    return this.http.post<User>(this.apiUrl, payload);
   }
 
   updateUser(user: User): Observable<User> {
@@ -39,3 +51,7 @@ export class UserService {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }
+
+/** re-export the User type so all imports from this file work */
+export type { User };
+export type { Page };
