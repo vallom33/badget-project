@@ -11,42 +11,48 @@
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
-"options": {
-  "outputPath": "dist/angular-slidebar",
-  "index": "src/index.html",
-  "main": "src/main.ts",
-  "polyfills": ["zone.js"],
-  "tsConfig": "tsconfig.app.json",
-  "assets": ["src/assets", { "glob": "**/*", "input": "public" }],
-  "styles": ["src/styles.css"],
-  "scripts": []
-},
-"configurations": {
-  "production": {
-    "outputHashing": "all",
-    "optimization": true,
-    "extractLicenses": true,
-    "sourceMap": false
-  },
-  "development": {
-    "optimization": false,
-    "extractLicenses": false,
-    "sourceMap": true
-  }
-},
-"defaultConfiguration": "production"
-
+          "options": {
+            "outputPath": "dist/angular-slidebar",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": ["zone.js"],
+            "tsConfig": "tsconfig.app.json",
+            "assets": [
+              "src/assets",
+              { "glob": "**/*", "input": "public" }
+            ],
+            "styles": ["src/styles.css"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "all",
+              "optimization": true,
+              "extractLicenses": true,
+              "sourceMap": false
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {},
           "configurations": {
-            "production": { "browserTarget": "angular-slidebar:build:production" },
-            "development": { "browserTarget": "angular-slidebar:build:development" }
+            "production": {
+              "browserTarget": "angular-slidebar:build:production"
+            },
+            "development": {
+              "browserTarget": "angular-slidebar:build:development"
+            }
           },
           "defaultConfiguration": "development"
         }
       }
     }
-  }
+  },
+  "defaultProject": "angular-slidebar"
 }
