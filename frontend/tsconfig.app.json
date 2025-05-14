@@ -8,5 +8,11 @@
     "src/main.ts",
     "src/polyfills.ts"
   ],
-  "include": ["src/**/*.d.ts"]
+  "include": [
+    "src/**/*.d.ts"
+  ],
+  "exclude": [
+    "ssr-backup",
+    "**/*.server.ts"
+  ]
 }
