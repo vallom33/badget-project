@@ -13,23 +13,18 @@ import { BadgeListComponent } from './pages/badge-list.component';
 import { BadgeEditComponent } from './pages/badge-edit.component';
 import { BadgeAddComponent } from './pages/badge-add.component';
 
-// Employees
 import { EmployeListComponent } from './pages/employe-list.component';
 import { EmployeEditComponent } from './pages/employe-edit.component';
 
-// Authorities
 import { AuthorityListComponent } from './pages/authority-list.component';
 import { AuthorityEditComponent } from './pages/authority-edit.component';
 
-// Permissions
 import { PermissionListComponent } from './pages/permission-list.component';
 import { PermissionEditComponent } from './pages/permission-edit.component';
 
-// Lots
 import { LotListComponent } from './pages/lot-list.component';
 import { LotEditComponent } from './pages/lot-edit.component';
 
-// Badge Status
 import { BadgeStatusListComponent } from './pages/badgestatus-list.component';
 import { BadgeStatusEditComponent } from './pages/badgestatus-edit.component';
 
@@ -59,7 +54,6 @@ export const routes: Routes = [
   },
   { path: 'badges/add', component: BadgeAddComponent },
 
-  // Employees
   { path: 'employes', component: EmployeListComponent, canActivate: [AuthGuard] },
   {
     path: 'employes/edit/:id',
@@ -67,7 +61,6 @@ export const routes: Routes = [
     data: { renderMode: 'client-only' }
   },
 
-  // Authorities
   { path: 'authorities', component: AuthorityListComponent, canActivate: [AuthGuard] },
   {
     path: 'authorities/edit/:id',
@@ -75,7 +68,6 @@ export const routes: Routes = [
     data: { renderMode: 'client-only' }
   },
 
-  // Permissions
   { path: 'permissions', component: PermissionListComponent, canActivate: [AuthGuard] },
   {
     path: 'permissions/edit/:id',
@@ -83,7 +75,6 @@ export const routes: Routes = [
     data: { renderMode: 'client-only' }
   },
 
-  // Lots
   { path: 'lots', component: LotListComponent, canActivate: [AuthGuard] },
   {
     path: 'lots/edit/:id',
@@ -91,7 +82,6 @@ export const routes: Routes = [
     data: { renderMode: 'client-only' }
   },
 
-  // Badge Status
   { path: 'badgestatus', component: BadgeStatusListComponent, canActivate: [AuthGuard] },
   {
     path: 'badgestatus/edit/:id',
@@ -99,7 +89,6 @@ export const routes: Routes = [
     data: { renderMode: 'client-only' }
   },
 
-  // Default and fallback
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', redirectTo: '/login' },
 ];
