@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginComponent } from './components/login.component';
 
 import { UserListComponent } from './pages/user-list.component';
@@ -13,7 +12,6 @@ import { ProfileEditComponent } from './pages/profile-edit.component';
 import { BadgeListComponent } from './pages/badge-list.component';
 import { BadgeEditComponent } from './pages/badge-edit.component';
 import { BadgeAddComponent } from './pages/badge-add.component';
-
 
 // Employees
 import { EmployeListComponent } from './pages/employe-list.component';
@@ -36,41 +34,70 @@ import { BadgeStatusListComponent } from './pages/badgestatus-list.component';
 import { BadgeStatusEditComponent } from './pages/badgestatus-edit.component';
 
 export const routes: Routes = [
-
   { path: 'login', component: LoginComponent },
-  
-
 
   { path: 'user', component: UserListComponent, canActivate: [AuthGuard] },
-  { path: 'user/edit/:id', component: UserEditComponent },
+  {
+    path: 'user/edit/:id',
+    component: UserEditComponent,
+    data: { renderMode: 'client-only' }
+  },
   { path: 'user/add', component: UserAddComponent },
 
-  { path: 'profile', component: ProfileListComponent , canActivate: [AuthGuard]},
-  { path: 'profile/edit/:id', component: ProfileEditComponent },
+  { path: 'profile', component: ProfileListComponent, canActivate: [AuthGuard] },
+  {
+    path: 'profile/edit/:id',
+    component: ProfileEditComponent,
+    data: { renderMode: 'client-only' }
+  },
 
-  { path: 'badges', component: BadgeListComponent , canActivate: [AuthGuard]},
-  { path: 'badges/edit/:id', component: BadgeEditComponent },
+  { path: 'badges', component: BadgeListComponent, canActivate: [AuthGuard] },
+  {
+    path: 'badges/edit/:id',
+    component: BadgeEditComponent,
+    data: { renderMode: 'client-only' }
+  },
   { path: 'badges/add', component: BadgeAddComponent },
 
   // Employees
-  { path: 'employes', component: EmployeListComponent , canActivate: [AuthGuard]},
-  { path: 'employes/edit/:id', component: EmployeEditComponent },
+  { path: 'employes', component: EmployeListComponent, canActivate: [AuthGuard] },
+  {
+    path: 'employes/edit/:id',
+    component: EmployeEditComponent,
+    data: { renderMode: 'client-only' }
+  },
 
   // Authorities
   { path: 'authorities', component: AuthorityListComponent, canActivate: [AuthGuard] },
-  { path: 'authorities/edit/:id', component: AuthorityEditComponent },
+  {
+    path: 'authorities/edit/:id',
+    component: AuthorityEditComponent,
+    data: { renderMode: 'client-only' }
+  },
 
   // Permissions
   { path: 'permissions', component: PermissionListComponent, canActivate: [AuthGuard] },
-  { path: 'permissions/edit/:id', component: PermissionEditComponent },
+  {
+    path: 'permissions/edit/:id',
+    component: PermissionEditComponent,
+    data: { renderMode: 'client-only' }
+  },
 
   // Lots
   { path: 'lots', component: LotListComponent, canActivate: [AuthGuard] },
-  { path: 'lots/edit/:id', component: LotEditComponent },
+  {
+    path: 'lots/edit/:id',
+    component: LotEditComponent,
+    data: { renderMode: 'client-only' }
+  },
 
   // Badge Status
   { path: 'badgestatus', component: BadgeStatusListComponent, canActivate: [AuthGuard] },
-  { path: 'badgestatus/edit/:id', component: BadgeStatusEditComponent },
+  {
+    path: 'badgestatus/edit/:id',
+    component: BadgeStatusEditComponent,
+    data: { renderMode: 'client-only' }
+  },
 
   // Default and fallback
   { path: '', redirectTo: '/login', pathMatch: 'full' },
