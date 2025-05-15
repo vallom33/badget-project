@@ -9,5 +9,9 @@
     "src/polyfills.ts"
   ],
   "include": ["src/**/*.d.ts"],
-  "exclude": ["ssr-backup", "**/*.server.ts"]
+  "exclude": [
+    "ssr-backup",
+    "**/*.server.ts",
+    "src/polyfills.ngtypecheck.ts"
+  ]
 }
