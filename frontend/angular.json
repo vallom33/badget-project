@@ -12,9 +12,10 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/angular-slidebar",
+            "outputPath": "dist/frontend",
             "index": "src/index.html",
             "main": "src/main.ts",
+            "prerender": false,
             "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "assets": [
@@ -54,5 +55,8 @@
       }
     }
   },
-  "defaultProject": "angular-slidebar"
+  "defaultProject": "angular-slidebar",
+  "cli": {
+    "analytics": "d119b8ff-62df-4d75-886e-fc820ebe5554"
+  }
 }
