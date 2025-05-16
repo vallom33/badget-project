@@ -8,24 +8,16 @@ import { isPlatformBrowser } from '@angular/common';
   providedIn: 'root',
 })
 export class AuthService {
-  private baseUrl: string;
+  private baseUrl = 'https://badget-project.onrender.com/auth';
 
   constructor(
     private http: HttpClient,
     @Inject(PLATFORM_ID) private platformId: Object
-  ) {
-    // إن كنا في المتصفح ونشغل التطبيق من localhost
-    if (isPlatformBrowser(this.platformId) && window.location.hostname === 'localhost') {
-      this.baseUrl = 'http://localhost:8080/auth';
-    } else {
-      // رابط الـ backend المنشور على Render
-      this.baseUrl = 'https://badget-project.onrender.com/auth/login';
-    }
-  }
+  ) {}
 
   login(username: string, password: string): Observable<HttpResponse<any>> {
     return this.http.post(
-      `${this.baseUrl}/login`,
+      `${this.baseUrl}/login`, // ✅ أصلحنا التنسيق هنا باستخدام backticks
       { username, password },
       { observe: 'response' }
     );
@@ -54,6 +46,7 @@ export class AuthService {
     return !!this.getToken();
   }
 
+  // ✅ دالة استخراج بيانات المستخدم من JWT
   getCurrentUser() {
     const token = this.getToken();
     if (token) {
@@ -63,10 +56,11 @@ export class AuthService {
     return null;
   }
 
+  // ✅ دالة تحليل التوكن
   private decodeToken(token: string): any {
     try {
       const payload = token.split('.')[1];
-      const decoded = atob(payload);
+      const decoded = atob(payload); // base64 → JSON
       return JSON.parse(decoded);
     } catch (e) {
       return null;
