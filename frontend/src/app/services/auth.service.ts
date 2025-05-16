@@ -19,7 +19,7 @@ export class AuthService {
       this.baseUrl = 'http://localhost:8080/auth';
     } else {
       // رابط الـ backend المنشور على Render
-      this.baseUrl = 'https://badget-project.onrender.com/auth';
+      this.baseUrl = 'https://badget-project.onrender.com/auth/login';
     }
   }
 
