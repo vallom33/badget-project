@@ -1,29 +1,16 @@
 // src/app/services/auth.service.ts
-
-import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { isPlatformBrowser } from '@angular/common';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private baseUrl: string;
+  private baseUrl = environment.apiUrl;
 
-  constructor(
-    private http: HttpClient,
-    @Inject(PLATFORM_ID) private platformId: Object
-  ) {
-    // حدد الـ baseUrl بناءً على مكان التشغيل
-    if (isPlatformBrowser(this.platformId) && window.location.hostname === 'localhost') {
-      this.baseUrl = 'http://localhost:8080/auth';
-    } else {
-      // استبدل هذا بالرابط الصحيح للـ backend على Render
-      this.baseUrl = 'https://badge-backend.onrender.com/auth';
-    }
-
-    // فقط لأغراض التحقق
+  constructor(private http: HttpClient) {
     console.log('🛠️ AuthService baseUrl =', this.baseUrl);
   }
 
@@ -36,22 +23,15 @@ export class AuthService {
   }
 
   saveToken(token: string): void {
-    if (isPlatformBrowser(this.platformId)) {
-      localStorage.setItem('jwtToken', token);
-    }
+    localStorage.setItem('jwtToken', token);
   }
 
   getToken(): string | null {
-    if (isPlatformBrowser(this.platformId)) {
-      return localStorage.getItem('jwtToken');
-    }
-    return null;
+    return localStorage.getItem('jwtToken');
   }
 
   logout(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      localStorage.removeItem('jwtToken');
-    }
+    localStorage.removeItem('jwtToken');
   }
 
   isAuthenticated(): boolean {
