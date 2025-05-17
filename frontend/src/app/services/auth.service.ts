@@ -1,4 +1,5 @@
 // src/app/services/auth.service.ts
+
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -8,16 +9,27 @@ import { isPlatformBrowser } from '@angular/common';
   providedIn: 'root',
 })
 export class AuthService {
-  private baseUrl = 'https://badget-project.onrender.com/auth';
+  private baseUrl: string;
 
   constructor(
     private http: HttpClient,
     @Inject(PLATFORM_ID) private platformId: Object
-  ) {}
+  ) {
+    // حدد الـ baseUrl بناءً على مكان التشغيل
+    if (isPlatformBrowser(this.platformId) && window.location.hostname === 'localhost') {
+      this.baseUrl = 'http://localhost:8080/auth';
+    } else {
+      // استبدل هذا بالرابط الصحيح للـ backend على Render
+      this.baseUrl = 'https://badge-backend.onrender.com/auth';
+    }
+
+    // فقط لأغراض التحقق
+    console.log('🛠️ AuthService baseUrl =', this.baseUrl);
+  }
 
   login(username: string, password: string): Observable<HttpResponse<any>> {
     return this.http.post(
-      `${this.baseUrl}/login`, // ✅ أصلحنا التنسيق هنا باستخدام backticks
+      `${this.baseUrl}/login`,
       { username, password },
       { observe: 'response' }
     );
@@ -46,23 +58,19 @@ export class AuthService {
     return !!this.getToken();
   }
 
-  // ✅ دالة استخراج بيانات المستخدم من JWT
   getCurrentUser() {
     const token = this.getToken();
     if (token) {
-      const payload = this.decodeToken(token);
-      return payload;
+      return this.decodeToken(token);
     }
     return null;
   }
 
-  // ✅ دالة تحليل التوكن
   private decodeToken(token: string): any {
     try {
       const payload = token.split('.')[1];
-      const decoded = atob(payload); // base64 → JSON
-      return JSON.parse(decoded);
-    } catch (e) {
+      return JSON.parse(atob(payload));
+    } catch {
       return null;
     }
   }
