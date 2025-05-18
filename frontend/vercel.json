@@ -1,0 +1,14 @@
+{
+  "builds": [
+    {
+      "src": "frontend/dist/angular-slidebar/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
+}
