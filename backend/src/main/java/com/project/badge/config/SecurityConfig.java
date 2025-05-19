@@ -17,8 +17,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 
@@ -53,36 +53,31 @@ public class SecurityConfig {
         return config.getAuthenticationManager();
     }
 
-    // 👈 هنا تنشئ bean لإعدادات CORS
     @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
+    CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
-        // استخدم allowedOriginPatterns لتغطية كل النطاقات الفرعية
-        config.setAllowedOriginPatterns(Arrays.asList(
-                "https://*.vercel.app",
-                "https://*.onrender.com"
-        ));
+        config.setAllowedOrigins(Arrays.asList("https://badget-project.vercel.app"));
         config.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE","OPTIONS"));
         config.setAllowedHeaders(Arrays.asList("*"));
+        config.setAllowCredentials(true);
         config.setExposedHeaders(Arrays.asList("Authorization"));
-
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        // يطبّق على كل المسارات
         source.registerCorsConfiguration("/**", config);
         return source;
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .cors(Customizer.withDefaults())           // ✅ يُفعّل bean فوق
+                .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
-                .sessionManagement(sm -> sm
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                // **Session stateless مهم جداً**
+                .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/login", "/auth/signup").permitAll()
+
+                        .requestMatchers(HttpMethod.POST, "/badges").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .anyRequest().authenticated()
                 )
