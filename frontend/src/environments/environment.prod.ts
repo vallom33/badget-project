@@ -1,5 +1,6 @@
-// src/environments/environment.prod.ts
+// environment.prod.ts
 export const environment = {
   production: true,
-  apiUrl: 'https://badget-project.onrender.com/auth'
+  authApiUrl: 'https://badget-project.onrender.com/auth',
+  apiUrl: 'https://badget-project.onrender.com'
 };
