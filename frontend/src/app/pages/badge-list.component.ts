@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BadgeService, Badge } from '../services/badge.service';
+import { EmployeService, Employe } from '../services/employe.service';
 import { Page } from '../models/page';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -14,6 +15,8 @@ import { RouterModule } from '@angular/router';
 })
 export class BadgeListComponent implements OnInit {
   badges: Badge[] = [];
+  employes: Employe[] = []; // 👈 قائمة الموظفين
+
   newBadge: Badge = {
     username: '',
     prenom: '',
@@ -22,16 +25,28 @@ export class BadgeListComponent implements OnInit {
     issueDate: '',
     expiryDate: '',
     photoUrl: '',
+    employe: null, // 👈 الموظف المختار
   };
 
   currentPage = 0;
   totalPages = 0;
   pageSize = 5;
 
-  constructor(private badgeService: BadgeService) {}
+  constructor(
+    private badgeService: BadgeService,
+    private employeService: EmployeService
+  ) {}
 
   ngOnInit(): void {
     this.loadPage(0);
+    this.loadEmployes(); // 👈 تحميل الموظفين
+  }
+
+  loadEmployes(): void {
+    this.employeService.getEmployes().subscribe({
+      next: (data) => (this.employes = data),
+      error: (err) => console.error('Error loading employes', err),
+    });
   }
 
   loadPage(page: number): void {

@@ -13,6 +13,12 @@
   <input type="date" placeholder="Expiry Date" [(ngModel)]="newBadge.expiryDate" name="expiryDate">
   <input placeholder="Photo URL" [(ngModel)]="newBadge.photoUrl" name="photoUrl">
 
+  <!-- 🔽 اختيار الموظف -->
+  <select [(ngModel)]="newBadge.employe" name="employe" required>
+    <option [ngValue]="null" disabled selected>-- Choisir un employé --</option>
+    <option *ngFor="let e of employes" [ngValue]="e">{{ e.username }}</option>
+  </select>
+
   <button type="submit">Ajouter</button>
 </form>
 
@@ -25,6 +31,7 @@
       <img *ngIf="b.photoUrl" [src]="b.photoUrl" alt="photo" class="thumb">
       👤 {{ b.prenom }} ({{ b.username }}) |
       📌 {{ b.badgeStatus?.status }} |
+      🧑 Employé: {{ b.employe?.username || '---' }} |
       <a [routerLink]="['/badges/edit', b.id]">Modifier</a> |
       <button (click)="deleteBadge(b.id!)">Supprimer</button>
     </li>
