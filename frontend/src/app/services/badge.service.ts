@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Page } from '../models/page';
+import { environment } from '../../environments/environment';
 
 export interface Badge {
   id?: number;
@@ -19,7 +20,7 @@ export interface Badge {
 
 @Injectable({ providedIn: 'root' })
 export class BadgeService {
-  private apiUrl = 'http://localhost:8080/badges';
+  private apiUrl = `${environment.apiUrl}/badges`;
 
   constructor(private http: HttpClient) {}
 

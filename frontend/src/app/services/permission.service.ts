@@ -1,7 +1,7 @@
-// src/app/services/permission.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface User {
   id: number;
@@ -20,7 +20,7 @@ export interface Permission {
   providedIn: 'root',
 })
 export class PermissionService {
-  private apiUrl = 'http://localhost:8080/permissions';
+  private apiUrl = `${environment.apiUrl}/permissions`;
 
   constructor(private http: HttpClient) {}
 
@@ -39,8 +39,4 @@ export class PermissionService {
   deletePermission(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
-
-  
-
-
 }

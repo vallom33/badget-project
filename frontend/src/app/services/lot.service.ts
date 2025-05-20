@@ -1,7 +1,7 @@
-// src/app/services/lot.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface Lot {
   id?: number;
@@ -13,7 +13,7 @@ export interface Lot {
   providedIn: 'root',
 })
 export class LotService {
-  private apiUrl = 'http://localhost:8080/lots';
+  private apiUrl = `${environment.apiUrl}/lots`;
 
   constructor(private http: HttpClient) {}
 

@@ -1,5 +1,3 @@
-// src/app/services/user.service.ts
-
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -7,16 +5,16 @@ import { map } from 'rxjs/operators';
 
 import { User } from '../models/user.model';
 import { Page } from '../models/page';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'http://localhost:8080/users';
+  private apiUrl = `${environment.apiUrl}/users`;
 
   constructor(private http: HttpClient) {}
 
-  /** Paged fetch (legacy) */
   getUsersPaginated(page: number, size: number): Observable<Page<User>> {
     const params = new HttpParams()
       .set('page', page.toString())
@@ -24,7 +22,6 @@ export class UserService {
     return this.http.get<Page<User>>(this.apiUrl, { params });
   }
 
-  /** Fetch all users, unwrapping the Page<User>.content */
   getUsers(): Observable<User[]> {
     const params = new HttpParams()
       .set('page', '0')
@@ -52,6 +49,5 @@ export class UserService {
   }
 }
 
-/** re-export the User type so all imports from this file work */
 export type { User };
 export type { Page };

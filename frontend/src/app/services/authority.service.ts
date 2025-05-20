@@ -1,7 +1,7 @@
-// src/app/services/authorite.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface Authorite {
   id?: number;
@@ -11,7 +11,7 @@ export interface Authorite {
 
 @Injectable({ providedIn: 'root' })
 export class AuthoriteService {
-  private apiUrl = 'http://localhost:8080/authorites';
+  private apiUrl = `${environment.apiUrl}/authorites`;
 
   constructor(private http: HttpClient) {}
 
@@ -27,7 +27,6 @@ export class AuthoriteService {
     return this.http.post<Authorite>(this.apiUrl, authorite);
   }
 
-  // إرسال الـ PUT للتحديث
   updateAuthorite(id: number, authorite: Authorite): Observable<Authorite> {
     return this.http.put<Authorite>(`${this.apiUrl}/${id}`, authorite);
   }
