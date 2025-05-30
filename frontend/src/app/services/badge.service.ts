@@ -16,6 +16,7 @@ export interface Badge {
   badgeStatus?: any;
   employe?: any;
   lot?: any;
+  label?: string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -23,6 +24,10 @@ export class BadgeService {
   private apiUrl = `${environment.apiUrl}/badges`;
 
   constructor(private http: HttpClient) {}
+
+  getAll(): Observable<Badge[]> {
+    return this.http.get<Badge[]>(this.apiUrl);
+  }
 
   getBadgesPaginated(page: number, size: number): Observable<Page<Badge>> {
     return this.http.get<Page<Badge>>(`${this.apiUrl}?page=${page}&size=${size}`);

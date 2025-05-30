@@ -1,38 +1,65 @@
+// ✅ badgestatus-list.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BadgeStatusService, BadgeStatus } from '../services/badge-status.service';
+import { BadgeService, Badge } from '../services/badge.service';
 import { RouterModule } from '@angular/router';
 
 @Component({
+  selector: 'app-badgestatus-list',
   standalone: true,
-  selector: 'app-badge-status-list',
-  templateUrl: './badgestatus-list.component.html',
-  styleUrls: ['./badgestatus-list.component.css'],
   imports: [CommonModule, FormsModule, RouterModule],
+  templateUrl: './badgestatus-list.component.html',
+  styleUrls: ['./badgestatus-list.component.css']
 })
 export class BadgeStatusListComponent implements OnInit {
-  statuses: BadgeStatus[] = [];
-  newStatus: BadgeStatus = { status: '' };
+  badgeStatuses: BadgeStatus[] = [];
+  badges: Badge[] = [];
+  newStatus: BadgeStatus = { status: '', badgeId: null };
   editingStatus: BadgeStatus | null = null;
+  page: number = 1;
+  pageSize: number = 5;
 
-  constructor(private badgeStatusService: BadgeStatusService) {}
+  constructor(
+    private badgeStatusService: BadgeStatusService,
+    private badgeService: BadgeService
+  ) {}
 
   ngOnInit(): void {
     this.loadStatuses();
+    this.loadBadges();
   }
 
   loadStatuses(): void {
-    this.badgeStatusService.getBadgeStatuses().subscribe((data) => {
-      this.statuses = data;
+    this.badgeStatusService.getAll().subscribe(data => {
+      this.badgeStatuses = data;
     });
   }
 
-  addStatus(): void {
-    if (!this.newStatus.status.trim()) return;
-    this.badgeStatusService.createBadgeStatus(this.newStatus).subscribe((s) => {
-      this.statuses.push(s);
-      this.newStatus = { status: '' };
+  loadBadges(): void {
+    this.badgeService.getBadgesPaginated(0, 100).subscribe(data => {
+      this.badges = data.content;
+    });
+  }
+
+  getBadgeLabelById(id: number | null | undefined): string {
+    const badge = this.badges.find(b => b.id === id);
+    return badge ? badge.label || `Badge #${badge.id}` : 'Unknown';
+  }
+
+  createStatus(): void {
+    if (!this.newStatus.status) return;
+    this.badgeStatusService.create(this.newStatus).subscribe(() => {
+      this.newStatus = { status: '', badgeId: null };
+      this.loadStatuses();
+    });
+  }
+
+  deleteStatus(id: number): void {
+    if (!confirm('Are you sure to delete this status?')) return;
+    this.badgeStatusService.delete(id).subscribe(() => {
+      this.loadStatuses();
     });
   }
 
@@ -40,12 +67,11 @@ export class BadgeStatusListComponent implements OnInit {
     this.editingStatus = { ...status };
   }
 
-  saveStatus(): void {
+  updateStatus(): void {
     if (!this.editingStatus) return;
-    this.badgeStatusService.updateBadgeStatus(this.editingStatus).subscribe((updated) => {
-      const index = this.statuses.findIndex(s => s.id === updated.id);
-      if (index > -1) this.statuses[index] = updated;
+    this.badgeStatusService.update(this.editingStatus).subscribe(() => {
       this.editingStatus = null;
+      this.loadStatuses();
     });
   }
 
@@ -53,11 +79,12 @@ export class BadgeStatusListComponent implements OnInit {
     this.editingStatus = null;
   }
 
-  deleteStatus(id: number): void {
-    if (confirm('Supprimer ce statut ?')) {
-      this.badgeStatusService.deleteBadgeStatus(id).subscribe(() => {
-        this.statuses = this.statuses.filter(s => s.id !== id);
-      });
-    }
+  paginatedStatuses(): BadgeStatus[] {
+    const start = (this.page - 1) * this.pageSize;
+    return this.badgeStatuses.slice(start, start + this.pageSize);
+  }
+
+  totalPages(): number {
+    return Math.ceil(this.badgeStatuses.length / this.pageSize);
   }
 }

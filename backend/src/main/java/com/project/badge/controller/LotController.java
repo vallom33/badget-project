@@ -10,32 +10,35 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/lots")
-
-public class LotController{
+public class LotController {
 
     @Autowired
     private LotService lotService;
 
     @GetMapping
-    public List<Lot> getAllLot(){
+    public List<Lot> getAllLot() {
         return lotService.getAllLot();
     }
 
     @GetMapping("/{id}")
-    public Optional<Lot> getLotById(@PathVariable  Long id){
+    public Optional<Lot> getLotById(@PathVariable Long id) {
         return lotService.getlotById(id);
-
     }
 
     @PostMapping
-    public Lot createlot(@RequestBody Lot lot){
+    public Lot createlot(@RequestBody Lot lot) {
         return lotService.createlot(lot);
-
     }
+
     @DeleteMapping("/{id}")
-    public void deletelot(@PathVariable Long id){
+    public void deletelot(@PathVariable Long id) {
         lotService.deletelot(id);
     }
 
-
+    // ✅ جديد
+    @PutMapping("/{lotId}/assign-waiting-badges")
+    public String assignWaitingBadgesToLot(@PathVariable Long lotId) {
+        lotService.assignWaitingBadgesToLot(lotId);
+        return "Badges en attente assignés à ce lot";
+    }
 }

@@ -1,7 +1,12 @@
-<h3>Modifier un Statut de Badge</h3>
-<form (ngSubmit)="saveBadgeStatus()">
-  <label for="status">Statut:</label>
-  <input [(ngModel)]="badgeStatus.status" name="status" required placeholder="Statut...">
-  <button type="submit" [disabled]="isLoading">Enregistrer</button>
-  <button type="button" (click)="cancelEdit()">Annuler</button>
+<h2>{{ isEditMode ? 'Modifier le statut' : 'Ajouter un nouveau statut' }}</h2>
+
+<form (ngSubmit)="save()" class="compact-form">
+  <input
+    type="text"
+    name="status"
+    [(ngModel)]="badgeStatus.status"
+    placeholder="Nom du statut"
+    required
+  />
+  <button type="submit">{{ isEditMode ? 'Mettre à jour' : 'Créer' }}</button>
 </form>

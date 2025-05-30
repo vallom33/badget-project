@@ -1,26 +1,86 @@
-<div class="status-form">
-  <h3>➕ Ajouter un Statut de Badge</h3>
-  <form (ngSubmit)="addStatus()" class="form-inline">
-    <input [(ngModel)]="newStatus.status" name="status" required placeholder="Statut...">
-    <button type="submit">Ajouter</button>
-  </form>
+<div class="container">
+  <h2>Badge Statuses</h2>
+
+  <!-- Create Form -->
+  <div class="form">
+    <input [(ngModel)]="newStatus.status" placeholder="New status" />
+    <select [(ngModel)]="newStatus.badgeId">
+      <option [ngValue]="null" disabled selected>Select Badge</option>
+      <option *ngFor="let badge of badges" [ngValue]="badge.id">
+        {{ badge.label || 'Badge #' + badge.id }}
+      </option>
+    </select>
+    <button class="btn create" (click)="createStatus()">Add</button>
+  </div>
+
+  <!-- Table -->
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Status</th>
+        <th>Badge</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let status of paginatedStatuses()">
+        <td>{{ status.id }}</td>
+
+        <!-- View/Edit Status -->
+        <td *ngIf="editingStatus?.id !== status.id">{{ status.status }}</td>
+        <td *ngIf="editingStatus?.id === status.id">
+          <input [(ngModel)]="editingStatus!.status" />
+        </td>
+
+        <!-- View/Edit Badge -->
+        <td *ngIf="editingStatus?.id !== status.id">
+          {{ getBadgeLabelById(status.badgeId) }}
+        </td>
+        <td *ngIf="editingStatus?.id === status.id">
+          <select [(ngModel)]="editingStatus!.badgeId">
+            <option [ngValue]="null" disabled>Select Badge</option>
+            <option *ngFor="let badge of badges" [ngValue]="badge.id">
+              {{ badge.label || 'Badge #' + badge.id }}
+            </option>
+          </select>
+        </td>
+
+        <!-- Actions -->
+        <td>
+          <button
+            class="btn edit"
+            *ngIf="editingStatus?.id !== status.id"
+            (click)="editStatus(status)">
+            Edit
+          </button>
+          <button
+            class="btn delete"
+            *ngIf="status.id !== undefined"
+            (click)="deleteStatus(status.id!)">
+            Delete
+          </button>
+          <button
+            class="btn update"
+            *ngIf="editingStatus?.id === status.id"
+            (click)="updateStatus()">
+            Save
+          </button>
+          <button
+            class="btn cancel"
+            *ngIf="editingStatus?.id === status.id"
+            (click)="cancelEdit()">
+            Cancel
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Pagination -->
+  <div class="pagination">
+    <button (click)="page = page - 1" [disabled]="page === 1">Previous</button>
+    <span>Page {{ page }} of {{ totalPages() }}</span>
+    <button (click)="page = page + 1" [disabled]="page === totalPages()">Next</button>
+  </div>
 </div>
-
-<hr>
-
-<h3>📋 Liste des Statuts</h3>
-<ul class="status-list">
-  <li *ngFor="let s of statuses">
-    <div *ngIf="editingStatus?.id !== s.id">
-      📛 <strong>     {{ s.status }}      </strong>
-      <button (click)="editStatus(s)" >   ✏️ Modifier</button>
-      <button (click)="s.id && deleteStatus(s.id)" >   🗑️ Supprimer</button>
-    </div>
-
-    <div *ngIf="editingStatus?.id === s.id">
-      <input [(ngModel)]="editingStatus!.status" name="editStatus" required>
-      <button (click)="saveStatus()">  💾 Enregistrer</button>
-      <button (click)="cancelEdit()">  ❌ Annuler</button>
-    </div>
-  </li>
-</ul>

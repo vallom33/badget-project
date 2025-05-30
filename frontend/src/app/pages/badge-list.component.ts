@@ -43,11 +43,20 @@ export class BadgeListComponent implements OnInit {
   }
 
   loadEmployes(): void {
-    this.employeService.getEmployes().subscribe({
-      next: (data) => (this.employes = data),
-      error: (err) => console.error('Error loading employes', err),
-    });
-  }
+  this.employeService.getEmployes().subscribe({
+    next: (data: any) => {
+      if (Array.isArray(data)) {
+        this.employes = data;
+      } else if (data.content) {
+        this.employes = data.content;
+      } else {
+        console.error('Unexpected format:', data);
+      }
+    },
+    error: (err) => console.error('Error loading employes', err),
+  });
+}
+
 
   loadPage(page: number): void {
     this.badgeService.getBadgesPaginated(page, this.pageSize).subscribe(

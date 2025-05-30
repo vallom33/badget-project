@@ -21,6 +21,11 @@ export class LotService {
     return this.http.get<Lot[]>(this.apiUrl);
   }
 
+  assignWaitingBadges(lotId: number): Observable<any> {
+  return this.http.put(`${this.apiUrl}/${lotId}/assign-waiting-badges`, {});
+}
+
+
   createLot(lot: Lot): Observable<Lot> {
     return this.http.post<Lot>(this.apiUrl, lot);
   }

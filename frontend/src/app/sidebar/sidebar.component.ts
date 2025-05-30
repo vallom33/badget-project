@@ -18,8 +18,8 @@ export class SidebarComponent {
 
   menuItems = [
     { icon: '👥', label: 'Users', link: '/user' },
-    { icon: ' ', label: 'Profile', link: '/profile' },
-    { icon: '🧑‍💼', label: 'Employés', link: '/employes' },
+    { icon: '👨', label: 'Profile', link: '/profile' },
+    { icon: '💼', label: 'Employés', link: '/employes' },
     { icon: '🎖️', label: 'Badges', link: '/badges' },
     { icon: '📋', label: 'Lots', link: '/lots' },
     { icon: '🛡️', label: 'Authorities', link: '/authorities' },

@@ -1,9 +1,9 @@
 package com.project.badge.repository;
+
 import com.project.badge.model.Badge;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import java.util.List;
 
-@Repository
-public interface BadgeRepository extends JpaRepository<Badge ,Long >{
-
+public interface BadgeRepository extends JpaRepository<Badge, Long> {
+    List<Badge> findByBadgeStatus_Status(String status);
 }

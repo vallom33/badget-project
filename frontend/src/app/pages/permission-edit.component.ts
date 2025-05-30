@@ -1,9 +1,9 @@
-// src/app/permission/permission-edit.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { PermissionService, Permission } from '../services/permission.service';
+import { UserService, User } from '../services/user.service';
 
 @Component({
   standalone: true,
@@ -13,10 +13,13 @@ import { PermissionService, Permission } from '../services/permission.service';
   imports: [CommonModule, FormsModule, RouterModule],
 })
 export class PermissionEditComponent implements OnInit {
-  permission: Permission = { username: '', description: '' };
+  permission: Permission = { description: '', user: null };
+  users: User[] = [];
+  selectedUserId: number | null = null;
 
   constructor(
     private permissionService: PermissionService,
+    private userService: UserService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -25,12 +28,26 @@ export class PermissionEditComponent implements OnInit {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.permissionService.getPermissionById(id).subscribe((p) => {
       this.permission = p;
+      this.selectedUserId = p.user?.id || null;
+    });
+    this.loadUsers();
+  }
+
+  loadUsers(): void {
+    this.userService.getUsers().subscribe((data) => {
+      this.users = data;
     });
   }
 
   updatePermission(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.permissionService.createPermission(this.permission).subscribe(() => {
+    if (!this.selectedUserId || !this.permission.description) return;
+
+    const updatedPermission = {
+      description: this.permission.description,
+      userId: this.selectedUserId
+    };
+
+    this.permissionService.updatePermission(this.permission.id!, updatedPermission).subscribe(() => {
       this.router.navigate(['/permissions']);
     });
   }

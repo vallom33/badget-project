@@ -57,15 +57,20 @@ public class SecurityConfig {
 
     /**
      * CorsFilter registration at HIGHEST precedence:
-     * يعالج كل طلبات CORS (OPTIONS included) قبل أي فلتر أمني.
+     * يسمح للـ frontend (localhost و Vercel) بالوصول.
      */
     @Bean
     public FilterRegistrationBean<CorsFilter> corsFilterRegistrationBean() {
         var config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.setAllowedOrigins(List.of("https://badget-project.vercel.app"));;
-        config.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
-        config.setAllowedHeaders(List.of("*"));
+
+        config.setAllowedOrigins(List.of(
+                "http://localhost:4200",
+                "https://badget-project.vercel.app",
+                "https://frontend-eight-livid-60.vercel.app"
+        ));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         config.setExposedHeaders(List.of("Authorization"));
 
         var source = new UrlBasedCorsConfigurationSource();
@@ -79,7 +84,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .cors(Customizer.withDefaults())            // يفعل CorsFilter السابق
+                .cors(Customizer.withDefaults()) // يستخدم corsFilter أعلاه
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(sm -> sm
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))

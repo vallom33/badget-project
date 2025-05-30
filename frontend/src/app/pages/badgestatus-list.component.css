@@ -1,43 +1,72 @@
-.status-form {
-    background: #222;
-    padding: 12px;
-    border-radius: 8px;
-    margin-bottom: 16px;
-  }
-  
-  .status-form input {
-    padding: 6px;
-    margin-right: 8px;
-    border-radius: 4px;
-    border: none;
-  }
-  
-  .status-form button {
-    padding: 6px 10px;
-    border-radius: 4px;
-    background: #4caf50;
-    color: white;
-    border: none;
-  }
-  
-  .status-list {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .status-list li {
-    background: #333;
-    margin-bottom: 10px;
-    padding: 8px;
-    border-radius: 6px;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .status-list input {
-    padding: 4px;
-    margin-right: 6px;
-  }
-  
+.container {
+  padding: 20px;
+  background-color: #121212;
+  color: white;
+  border-radius: 8px;
+}
+
+.form {
+  margin-bottom: 20px;
+}
+
+input, select {
+  padding: 8px;
+  margin-right: 10px;
+  background-color: #1e1e1e;
+  color: white;
+  border: 1px solid #444;
+  border-radius: 4px;
+}
+
+button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  margin-right: 5px;
+  cursor: pointer;
+  color: white;
+}
+
+button.create { background-color: #4CAF50; }
+button.edit { background-color: #2196F3; }
+button.delete { background-color: #f44336; }
+button.update { background-color: #00bcd4; }
+button.cancel { background-color: #9e9e9e; }
+
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.styled-table th, .styled-table td {
+  border: 1px solid #444;
+  padding: 8px;
+  text-align: left;
+}
+
+.styled-table th {
+  background-color: #333;
+}
+
+.pagination button {
+  margin: 0 10px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  background-color: #4CAF50; /* اجعلها blue بـ #2196F3 لو أردت */
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.pagination button:hover {
+  background-color: #45a049; /* لون hover */
+}
+
+.pagination button[disabled] {
+  background-color: #2e2e2e;
+  color: #888;
+  cursor: not-allowed;
+}

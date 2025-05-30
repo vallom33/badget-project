@@ -1,43 +1,57 @@
-<div class="form-container">
-  <h3>➕ Add Permission</h3>
-  <form (ngSubmit)="addPermission()">
-    <label>
-      👤 Name:
-      <input [(ngModel)]="newPermission.username" name="username" required />
-    </label>
-    <label>
-      📝 Description:
-      <input [(ngModel)]="newPermission.description" name="description" required />
-    </label>
-    <label>
-      👥 User:
-      <select [(ngModel)]="selectedUserId" name="userId" required>
-        <option [ngValue]="null" disabled selected>Select User</option>
-        <option *ngFor="let user of users" [value]="user.id">{{ user.username }}</option>
-      </select>
-    </label>
+<div class="container">
+  <h2>Permissions</h2>
 
-    <button type="submit">✅ Add Permission</button>
+  <form (ngSubmit)="addPermission()" #permForm="ngForm" class="form">
+    <select [(ngModel)]="newPermission.userId" name="userId" required>
+      <option value="" disabled selected>— Select User —</option>
+      <option *ngFor="let u of users" [value]="u.id">{{ u.username }}</option>
+    </select>
+
+    <input [(ngModel)]="newPermission.description" name="description" placeholder="Description" required />
+
+    <button type="submit" [disabled]="permForm.invalid" class="btn create">Add</button>
   </form>
-</div>
 
-<hr />
+  <hr />
 
-<div class="list-container">
-  <h3>🔐 Permissions List</h3>
-  <ul>
-    <li *ngFor="let p of permissions">
-      <div class="permission-info">
-        👤 <strong>{{ p.username }}</strong> <br />
-        📝 <em>{{ p.description }}</em> <br />
-        👥 Assigned To: 
-        <span *ngIf="p.user">{{ p.user.username }}</span>
-        <span *ngIf="!p.user">-</span>
-      </div>
-      <div class="actions">
-        <a [routerLink]="['/permissions/edit', p.id]">✏️ Edit</a>
-        <button (click)="p.id && deletePermission(p.id)">❌ Delete</button>
-      </div>
-    </li>
-  </ul>
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>User</th>
+        <th>Description</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of pagedPermissions">
+        <td>{{ p.id }}</td>
+
+        <td *ngIf="editingId !== p.id">{{ p.user?.username || '—' }}</td>
+        <td *ngIf="editingId === p.id">
+          <select [(ngModel)]="editCache[p.id!].userId">
+            <option *ngFor="let u of users" [value]="u.id">{{ u.username }}</option>
+          </select>
+        </td>
+
+        <td *ngIf="editingId !== p.id">{{ p.description }}</td>
+        <td *ngIf="editingId === p.id">
+          <input [(ngModel)]="editCache[p.id!].description" />
+        </td>
+
+        <td>
+          <button *ngIf="editingId !== p.id" class="btn edit" (click)="startEdit(p.id!)">Edit</button>
+          <button *ngIf="editingId !== p.id" class="btn delete" (click)="deletePermission(p.id!)">Delete</button>
+          <button *ngIf="editingId === p.id" class="btn update" (click)="saveEdit(p.id!)">Save</button>
+          <button *ngIf="editingId === p.id" class="btn cancel" (click)="cancelEdit()">Cancel</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="pagination">
+    <button (click)="changePage(-1)" [disabled]="currentPage === 1">Previous</button>
+    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+    <button (click)="changePage(1)" [disabled]="currentPage === totalPages">Next</button>
+  </div>
 </div>

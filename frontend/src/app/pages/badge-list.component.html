@@ -37,3 +37,9 @@
     </li>
   </ul>
 </div>
+
+<div class="paginator">
+  <button (click)="prev()" [disabled]="currentPage === 0">Previous</button>
+  <span>Page {{ currentPage + 1 }} / {{ totalPages }}</span>
+  <button (click)="next()" [disabled]="currentPage + 1 >= totalPages">Next</button>
+</div>

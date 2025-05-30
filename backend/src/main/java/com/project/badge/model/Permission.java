@@ -1,53 +1,45 @@
 package com.project.badge.model;
+
 import jakarta.persistence.*;
-
-import java.util.HashSet;
-import java.util.Set;
-
 
 @Entity
 public class Permission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
-    @Column(name="username",nullable = false,unique = true)
-    private String username;
 
-    @Column(name="description",nullable = false,unique = true)
+    @Column(name = "description", nullable = false)
     private String description;
 
-    @ManyToMany(mappedBy = "permissions")
-    private Set<Authorite> authorities = new HashSet<>();
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User user;
 
+    public Permission() {}
 
-    public Permission() {
-
-    }
-    public Permission(String username, String description){
-        this.username = username;
+    public Permission(User user, String description) {
+        this.user = user;
         this.description = description;
-
     }
 
     public Long getId() {
         return id;
     }
     public void setId(Long id) {
-        this.id=id;
+        this.id = id;
     }
-    public String getUsername() {
-        return username;
+
+    public User getUser() {
+        return user;
     }
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUser(User user) {
+        this.user = user;
     }
+
     public String getDescription() {
         return description;
     }
     public void setDescription(String description) {
         this.description = description;
     }
-
-
 }

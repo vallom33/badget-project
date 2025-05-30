@@ -44,13 +44,21 @@ export class AuthorityEditComponent implements OnInit {
   }
 
   update(): void {
-    console.log('Saving edit:', this.auth);
-    if (!this.auth.username || !this.auth.role) return;
-    this.svc.updateAuthorite(this.auth.id!, this.auth).subscribe({
-      next: () => this.router.navigate(['/authorites']),
-      error: e => console.error('Update failed:', e)
-    });
+  console.log('Saving edit:', this.auth);
+
+  if (!this.auth.id) {
+    console.error('Authority ID is missing');
+    return;
   }
+
+  if (!this.auth.username || !this.auth.role) return;
+
+  this.svc.updateAuthorite(this.auth.id, this.auth).subscribe({
+    next: () => this.router.navigate(['/authorites']),
+    error: e => console.error('Update failed:', e)
+  });
+}
+
 
   cancel(): void {
     this.router.navigate(['/authorites']);

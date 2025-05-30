@@ -1,12 +1,19 @@
-<!-- src/app/permission/permission-edit.component.html -->
-<h2>Modifier une Permission</h2>
-<form (ngSubmit)="updatePermission()">
-  <label>Nom de la permission:</label>
-  <input [(ngModel)]="permission.username" name="username" required />
+<div class="container">
+  <h2>Edit Permission</h2>
 
-  <label>Description:</label>
-  <input [(ngModel)]="permission.description" name="description" required />
+  <form (ngSubmit)="updatePermission()" *ngIf="permission.id">
+    <label>User:</label>
+    <select [(ngModel)]="selectedUserId" name="userId" required>
+      <option [ngValue]="null" disabled>Select User</option>
+      <option *ngFor="let u of users" [value]="u.id">{{ u.username }}</option>
+    </select>
 
-  <button type="submit">Mettre à jour</button>
-  <button type="button" (click)="cancel()">Annuler</button>
-</form>
+    <label>Description:</label>
+    <input [(ngModel)]="permission.description" name="description" required />
+
+    <div class="buttons">
+      <button type="submit" class="btn update">Update</button>
+      <button type="button" class="btn cancel" (click)="cancel()">Cancel</button>
+    </div>
+  </form>
+</div>

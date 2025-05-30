@@ -23,11 +23,21 @@
 <h2>Liste des Lots</h2>
 <div class="scrollable">
   <ul>
-    <li *ngFor="let l of lots" class="item">
+    <li *ngFor="let l of pagedLots" class="item">
       📦 <strong>{{ l.nombre }}</strong> badges |
       📅 <strong>{{ l.date }}</strong>
       <a [routerLink]="['/lots/edit', l.id]" class="edit">Modifier</a>
       <button (click)="l.id && deleteLot(l.id)">Supprimer</button>
+      <button (click)="assignWaitingBadgesToLot(l.id!)">
+        📥 Envoyer badges en attente
+      </button>
     </li>
   </ul>
+
+  <!-- Pagination Controls -->
+  <div class="pagination-controls">
+    <button (click)="changePage(-1)" [disabled]="currentPage === 1">Previous</button>
+    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+    <button (click)="changePage(1)" [disabled]="currentPage === totalPages">Next</button>
+  </div>
 </div>

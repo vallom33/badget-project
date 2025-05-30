@@ -1,12 +1,19 @@
-<div class="app-container">
-  <app-sidebar 
-    *ngIf="!isLoginPage"
-    [isSidebarCollapsed]="isSidebarCollapsed"
-    [currentUser]="currentUser"
-    (sidebarToggle)="onSidebarToggle()">
-  </app-sidebar>
+<!-- ✅ إذا نحن على صفحة تسجيل الدخول -->
+<ng-container *ngIf="isLoginPage">
+  <router-outlet></router-outlet>
+</ng-container>
 
-  <main class="content" [class.content-expanded]="isSidebarCollapsed">
-    <router-outlet></router-outlet>
-  </main>
-</div>
+<!-- ✅ باقي الصفحات (مع الشريط الجانبي والمحتوى) -->
+<ng-container *ngIf="!isLoginPage">
+  <div class="app-container">
+    <app-sidebar
+      [isSidebarCollapsed]="isSidebarCollapsed"
+      [currentUser]="currentUser"
+      (sidebarToggle)="onSidebarToggle()">
+    </app-sidebar>
+
+    <main class="content" [class.content-expanded]="isSidebarCollapsed">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</ng-container>

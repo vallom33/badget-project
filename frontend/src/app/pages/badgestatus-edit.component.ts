@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BadgeStatusService, BadgeStatus } from '../services/badge-status.service';
+import { BadgeStatusService } from '../services/badge-status.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -12,8 +12,8 @@ import { FormsModule } from '@angular/forms';
   imports: [CommonModule, FormsModule],
 })
 export class BadgeStatusEditComponent implements OnInit {
-  badgeStatus: BadgeStatus = { status: '' };
-  isLoading = false;
+  badgeStatus: any = { status: '' };
+  isEditMode = false;
 
   constructor(
     private badgeStatusService: BadgeStatusService,
@@ -22,27 +22,24 @@ export class BadgeStatusEditComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadBadgeStatus();
-  }
-
-  loadBadgeStatus(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.isLoading = true;
-      this.badgeStatusService.getBadgeStatuses().subscribe((data) => {
-        this.badgeStatus = data.find((s) => s.id === +id) || { status: '' };
-        this.isLoading = false;
+      this.isEditMode = true;
+      this.badgeStatusService.getById(+id).subscribe((data: any) => {
+        this.badgeStatus = data;
       });
     }
   }
 
-  saveBadgeStatus(): void {
-    this.badgeStatusService.updateBadgeStatus(this.badgeStatus).subscribe(() => {
-      this.router.navigate(['/badgestatus-list']);
-    });
-  }
-
-  cancelEdit(): void {
-    this.router.navigate(['/badgestatus-list']);
+  save(): void {
+    if (this.isEditMode) {
+      this.badgeStatusService.update(this.badgeStatus).subscribe(() => {
+        this.router.navigate(['/badgestatus']);
+      });
+    } else {
+      this.badgeStatusService.create(this.badgeStatus).subscribe(() => {
+        this.router.navigate(['/badgestatus']);
+      });
+    }
   }
 }
